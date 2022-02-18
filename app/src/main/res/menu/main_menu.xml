@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/m_item1"
+        android:title="Home"
+        android:icon="@drawable/ic_home"/>
+    <item
+        android:id="@+id/m_item2"
+        android:title="Empleado en Vacaciones"
+        android:icon="@drawable/ic_note_add"/>
+    <item
+        android:id="@+id/m_item3"
+        android:title="Aviso de Vacaciones"
+        android:icon="@drawable/ic_notification_important"/>
+    <item
+        android:id="@+id/m_item4"
+        android:title="Ver Pendientes"
+        android:icon="@drawable/ic_pending_actions"/>
+    <item
+        android:id="@+id/m_item5"
+        android:title="Calendario de Vacaciones"
+        android:icon="@drawable/ic_calendar"/>
+    <item
+        android:id="@+id/m_item6"
+        android:title="Configuraciones"
+        android:icon="@drawable/ic_settings_applications" />
+</menu>
