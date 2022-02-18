@@ -39,13 +39,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        if(toggle.onOptionsItemSelected(item)){
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     //Sobreescribir la Función para seleccionar item del menu
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val fragmenthome= FragmentHome.newInstance("","")

@@ -13,5 +13,5 @@ data class Workers (
     @ColumnInfo(name = "Correo") val correo: String?,
     @ColumnInfo(name = "Equipo") val equipo: String?,
     @ColumnInfo(name = "Fecha de Ingreso") val fecha_ingreso: Date?,
-    @ColumnInfo(name = "Antigüedad AÑOS") val antig_age: String?
+    @ColumnInfo(name = "Antigüedad AÑOS") val antig_age: Int?
 )
