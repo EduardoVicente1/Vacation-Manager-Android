@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Vacation-Manager-Android</string>
+
+    <string name="body_text">
+        Estimado Roshkero.
+
+        Por la presente, ponemos a su conocimiento que las vacaciones anuales que a Ud. le
+        corresponden de 12 días de acuerdo a su antigüedad, las podrá usufructuar en los
+        siguientes 6 meses a partir de la mencionada fecha o de lo contrario solicitar la
+        acumulación de sus vacaciones, en conformidad con el Art. 218 del Código Laboral.
+
+        Atentamente.
+        Talento Humano.
+    </string>
+
 </resources>
