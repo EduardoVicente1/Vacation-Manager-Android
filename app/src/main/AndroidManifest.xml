@@ -11,6 +11,7 @@
         android:theme="@style/Theme.VacationManagerAndroid">
         <activity android:name=".SplashScreen"
             android:theme="@style/SplashScreenTheme"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
         </activity>
     </application>
