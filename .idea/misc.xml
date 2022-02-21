@@ -5,7 +5,12 @@
       <map>
         <entry key="..\:/Users/Eduardo/AndroidStudioProjects/VacationManagerAndroid/app/src/main/res/drawable/splashscreen.xml" value="0.1395" />
         <entry key="..\:/Users/Eduardo/AndroidStudioProjects/VacationManagerAndroid/app/src/main/res/layout/activity_main.xml" value="0.18" />
-        <entry key="..\:/Users/Eduardo/AndroidStudioProjects/VacationManagerAndroid/app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
+        <entry key="..\:/Users/Eduardo/AndroidStudioProjects/VacationManagerAndroid/app/src/main/res/layout/activity_main3.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Eduardo/AndroidStudioProjects/VacationManagerAndroid/app/src/main/res/layout/activity_manager_error.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/Eduardo/AndroidStudioProjects/VacationManagerAndroid/app/src/main/res/layout/activity_splash_screen.xml" value="0.22" />
+        <entry key="..\:/Users/Eduardo/AndroidStudioProjects/VacationManagerAndroid/app/src/main/res/layout/card_view.xml" value="0.16530797101449277" />
+        <entry key="..\:/Users/Eduardo/AndroidStudioProjects/VacationManagerAndroid/app/src/main/res/layout/card_vire.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Eduardo/AndroidStudioProjects/VacationManagerAndroid/app/src/main/res/layout/fragment_managererror.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>
