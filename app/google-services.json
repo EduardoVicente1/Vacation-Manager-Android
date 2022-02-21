@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "884879326058",
+    "project_id": "vacation-manager-fbnoti",
+    "storage_bucket": "vacation-manager-fbnoti.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:884879326058:android:4ce58e4962803eb3060313",
+        "android_client_info": {
+          "package_name": "com.example.vacation_manager_android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "884879326058-2ofqcev16bl33vpckbmlu8t18sh0df0j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGnl9AxKNHNaz11C6b53jV68qqC5H_0BA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "884879326058-2ofqcev16bl33vpckbmlu8t18sh0df0j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
