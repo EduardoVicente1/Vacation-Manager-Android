@@ -14,6 +14,6 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="msg_subscribed">nada</string>
-    <string name="msg_subscribe_failed">fallido</string>
+    <string name="msg_subscribed">se Subscribio kp</string>
+    <string name="msg_subscribe_failed">no andubo tu matraca</string>
 </resources>

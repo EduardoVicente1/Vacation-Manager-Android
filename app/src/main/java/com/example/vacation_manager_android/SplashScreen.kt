@@ -52,7 +52,7 @@ class SplashScreen : AppCompatActivity() {
                     msg = getString(R.string.msg_subscribe_failed)
                 }
                 Log.d(TAG, msg)
-                Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+
             }
 
     }
