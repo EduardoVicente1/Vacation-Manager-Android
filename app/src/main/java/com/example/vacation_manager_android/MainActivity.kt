@@ -19,7 +19,7 @@ import com.google.android.material.navigation.NavigationView
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     lateinit var toggle: ActionBarDrawerToggle
-    lateinit var drawerLayout: DrawerLayout
+    private lateinit var drawerLayout: DrawerLayout
     lateinit var navView: NavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,21 +29,32 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout=findViewById(R.id.drawerLayout)
         navView=findViewById(R.id.nav_main)
 
-        toggle= ActionBarDrawerToggle(this,drawerLayout, R.string.open, R.string.close)
+
+        toggle= ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         navView.setNavigationItemSelectedListener(this)
-
+//        drawerLayout=findViewById(R.id.drawerLayout)
+//        navView=findViewById(R.id.nav_main)
+//
+//        navView.setNavigationItemSelectedListener(this)
+//
+//        toggle= ActionBarDrawerToggle(this,drawerLayout, R.string.open, R.string.close)
+//        drawerLayout.addDrawerListener(toggle)
+//        toggle.isDrawerIndicatorEnabled = true
+//        toggle.syncState()
+//
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
+
 
     //Sobreescribir la Función para seleccionar item del menu
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val fragmenthome= FragmentHome.newInstance("","")
         val fragmentvacation= FragmentVacationReque.newInstance("","")
-        val fragmentCrudWorkers= FragmentCrudWorkers.newInstance("","")
         when(item.itemId){
             R.id.m_item1 -> supportFragmentManager.beginTransaction()
                 .replace(R.id.contiene_Fragments,fragmenthome)
@@ -64,11 +75,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 "Clicked Item 4", Toast.LENGTH_SHORT).show()
             R.id.m_item5 -> Toast.makeText(applicationContext,
                 "Clicked Item 5", Toast.LENGTH_SHORT).show()
-            R.id.m_item6 -> supportFragmentManager.beginTransaction()
-                .replace(R.id.contiene_Fragments, fragmentCrudWorkers)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .addToBackStack(null)
-                .commit()
+            R.id.m_item6 -> Toast.makeText(applicationContext,
+                "Clicked Item 6", Toast.LENGTH_SHORT).show()
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
@@ -89,5 +97,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
         return super.dispatchTouchEvent(event)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(toggle.onOptionsItemSelected(item)){
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

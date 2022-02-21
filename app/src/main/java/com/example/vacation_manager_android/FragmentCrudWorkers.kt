@@ -65,23 +65,22 @@ class FragmentCrudWorkers : Fragment() {
         db= WorkersDB.getInstance(view.context)!!
         workdao= db.workersDAO()
 
-        tx_crudw_fecha.setOnClickListener{showDatePickerDialog()}
-//            var cal= Calendar.getInstance()
-//            var year = cal.get(Calendar.YEAR)
-//            var month = cal.get(Calendar.MONTH)
-//            var dayOfMonth = cal.get(Calendar.DAY_OF_MONTH)
-//
-//            val myFormat = "dd/MM/yyyy" // formato dia,mes,año
-//            val sdf = SimpleDateFormat(myFormat, Locale.US)
-//            tx_crudw_fecha.text = sdf.format(cal.time)
+        tx_crudw_fecha.setOnClickListener{
+            var cal= Calendar.getInstance()
+            var year = cal.get(Calendar.YEAR)
+            var month = cal.get(Calendar.MONTH)
+            var dayOfMonth = cal.get(Calendar.DAY_OF_MONTH)
 
+            val myFormat = "dd/MM/yyyy" // formato dia,mes,año
+            val sdf = SimpleDateFormat(myFormat, Locale.US)
+            tx_crudw_fecha.text = sdf.format(cal.time)
 
-//            val dpd= DatePickerDialog(actividad, DatePickerDialog.OnDateSetListener{ view, year, month, dayOfMonth ->
-//
-//                tx_crudw_fecha.setText("" + dayOfMonth + " / " + month + " / " + year)
-//            },year, month, dayOfMonth)
-//            dpd.show()
+            val dpd= DatePickerDialog(actividad, DatePickerDialog.OnDateSetListener{ view, year, month, dayOfMonth ->
 
+                tx_crudw_fecha.setText("" + dayOfMonth + " / " + month + " / " + year)
+            },year, month, dayOfMonth)
+            dpd.show()
+        }
         btn_save.setOnClickListener{
             if(tx_crudw_nombre.text!=null && tx_crudw_cedula.text!=null && tx_crudw_correo.text!=null &&
                 tx_crudw_equipo.text!=null && tx_crudw_fecha.text!=null && tx_crudw_antiguedad.text!=null){
@@ -103,15 +102,6 @@ class FragmentCrudWorkers : Fragment() {
                         "correctamente", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    private fun showDatePickerDialog() {
-        val datePicker = DatePickerClass{day, month, year -> onDateSelected(day, month, year)}
-        datePicker.show(parentFragmentManager,"datePicker")
-    }
-
-    fun onDateSelected(day:Int, month:Int, year:Int){
-
     }
 
     override fun onCreateView(
