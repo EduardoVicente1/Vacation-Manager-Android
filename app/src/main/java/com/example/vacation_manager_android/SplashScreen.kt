@@ -8,9 +8,12 @@ import android.os.Looper
 import android.util.Log
 import android.view.WindowManager
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.ktx.messaging
 
 const val TAG = "firebaseLog"
 
@@ -41,6 +44,16 @@ class SplashScreen : AppCompatActivity() {
             Log.d(TAG, token)
 
         })
+
+        Firebase.messaging.subscribeToTopic("vacation")
+            .addOnCompleteListener { task ->
+                var msg = getString(R.string.msg_subscribed)
+                if (!task.isSuccessful) {
+                    msg = getString(R.string.msg_subscribe_failed)
+                }
+                Log.d(TAG, msg)
+                Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+            }
 
     }
 }
