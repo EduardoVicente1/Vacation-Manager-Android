@@ -7,7 +7,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
-class PushNotificationService : FirebaseMessagingService() {
+class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         var tittle = remoteMessage.notification?.title
         var description = remoteMessage.notification?.body
