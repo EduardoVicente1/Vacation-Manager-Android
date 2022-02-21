@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/icon1"
         android:supportsRtl="true"
         android:theme="@style/Theme.VacationManagerAndroid">
-
+        <activity
+            android:name=".HostActivity"
+            android:exported="false" />
         <!--
      Set custom default icon. This is used when no icon is set for incoming notification messages.
      See README(https://goo.gl/l4GJaQ) for more.
@@ -28,8 +30,7 @@
         <activity
             android:name=".LoginActivity"
             android:exported="false"
-            android:windowSoftInputMode="stateHidden"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".SplashScreen"
             android:exported="true"
@@ -40,8 +41,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-         <!-- servicios -->
+        </activity> <!-- servicios -->
         <service
             android:name=".MyFirebaseMessagingService"
             android:exported="false">

@@ -1,10 +1,12 @@
 package com.example.vacation_manager_android
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Window
 import android.widget.*
 import androidx.core.view.isVisible
 import androidx.security.crypto.EncryptedSharedPreferences
@@ -25,11 +27,11 @@ class LoginActivity : AppCompatActivity() {
 
     val errorcsm = Errorcsm()
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
 
         val masterKey= MasterKey.Builder(applicationContext,MasterKey.DEFAULT_MASTER_KEY_ALIAS)
             .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
@@ -61,7 +63,7 @@ class LoginActivity : AppCompatActivity() {
             if(verificar(txt_usuario.text.toString(),txt_contrasenia.text.toString())){
                 //loguea
                 checklogin()//guarda los valores de user y pass si esta seleccionado
-                //startActivity(intentInicio)
+                startActivity(Intent(this, HostActivity::class.java))
             }
         }
     }
@@ -130,12 +132,6 @@ class LoginActivity : AppCompatActivity() {
         btn_token.setOnClickListener() {
             //se envia el token al correo
             btn_token.isVisible = false
-            /*val fr_olvidado = LoginFragment.newInstance("","")
-            supportFragmentManager
-                .beginTransaction()
-                .add(R.id.frc_olvidado,fr_olvidado)
-                .addToBackStack(null)
-                .commit()*/
         }
     }
 
