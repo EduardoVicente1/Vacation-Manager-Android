@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".FragmentCrudWorkers">
+
+    <TextView
+        android:id="@+id/tx_titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Formulario de Empleados"
+        android:textSize="25sp"
+        android:layout_marginTop="90dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cons_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tx_titulo"
+        android:backgroundTint="@null">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tx_crudW_nombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="Nombres"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tx_crudW_cedula"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:hint="Cédula"
+            android:inputType="number"
+            app:layout_constraintEnd_toStartOf="@+id/tx_crudW_correo"
+            app:layout_constraintStart_toStartOf="@+id/tx_crudW_nombre"
+            app:layout_constraintTop_toBottomOf="@+id/tx_crudW_nombre" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tx_crudW_correo"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:hint="Email"
+            app:layout_constraintEnd_toEndOf="@id/tx_crudW_nombre"
+            app:layout_constraintTop_toBottomOf="@id/tx_crudW_nombre" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tx_crudW_equipo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:hint="Equipo"
+            app:layout_constraintStart_toStartOf="@+id/tx_crudW_cedula"
+            app:layout_constraintTop_toBottomOf="@+id/tx_crudW_cedula" />
+
+        <EditText
+            android:id="@+id/tx_crudW_fecha"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="18dp"
+            android:gravity="bottom"
+            android:text="dd/mm/aaaa"
+            android:clickable="false"
+            android:focusable="false"
+            app:layout_constraintEnd_toStartOf="@+id/tx_crudW_antiguedad"
+            app:layout_constraintTop_toBottomOf="@+id/tx_crudW_equipo" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tx_crudW_antiguedad"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="100dp"
+            android:gravity="center"
+            android:hint="Años"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="@+id/tx_crudW_equipo"
+            app:layout_constraintTop_toBottomOf="@+id/tx_crudW_equipo" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cons_form">
+
+        <Button
+            android:id="@+id/btn_crudW_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="28dp"
+            android:text="Nuevo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/btn_crudW_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="28dp"
+            android:text="Guardar"
+            app:layout_constraintStart_toEndOf="@id/btn_crudW_new"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/btn_crudW_modify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="28dp"
+            android:text="Modificar"
+            app:layout_constraintStart_toEndOf="@id/btn_crudW_save"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_crudW_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:text="Eliminar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_crudW_new" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
