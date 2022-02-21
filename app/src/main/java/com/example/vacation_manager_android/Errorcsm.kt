@@ -13,7 +13,6 @@ import androidx.core.view.isVisible
 class Errorcsm {
 
     fun texterror(textView: TextView,context: Context){
-        textView.text = "Contraseña Incorrecta"
         var animationSlideDown = AnimationUtils.loadAnimation(context, R.anim.slide_down)
         textView.isVisible=true
         textView.startAnimation(animationSlideDown)
