@@ -1,5 +1,8 @@
 package com.example.vacation_manager_android
 
+import android.app.Activity
+import android.app.DatePickerDialog
+import android.content.res.Resources
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,9 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.FragmentManager
 import com.example.vacation_manager_android.database.WorkersDB
 import com.example.vacation_manager_android.users.Workers
 import com.example.vacation_manager_android.users.WorkersDAO
+import java.text.SimpleDateFormat
 import java.util.*
 
 private const val ARG_PARAM1 = "param1"
@@ -31,6 +37,7 @@ class FragmentCrudWorkers : Fragment() {
     lateinit var btn_delete: Button
     lateinit var db: WorkersDB
     lateinit var workdao: WorkersDAO
+    lateinit var actividad: MainActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,21 +61,56 @@ class FragmentCrudWorkers : Fragment() {
         btn_modify=view.findViewById(R.id.btn_crudW_modify)
         btn_delete=view.findViewById(R.id.btn_crudW_delete)
 
+        (activity as Activity).also { actividad = it as MainActivity }
         db= WorkersDB.getInstance(view.context)!!
         workdao= db.workersDAO()
 
-//        btn_new.setOnClickListener{
-//            workdao?.insertWorkers(
-//                Workers(
-//                    UUID.randomUUID().toString(),
-//                    tx_crudw_nombre.text.toString(),
-//                    tx_crudw_cedula.text.toString().toInt(),
-//                    tx_crudw_correo.text.toString(),
-//                    tx_crudw_equipo.text.toString(),
-//                    tx_crudw_fecha.text.toString()
-//                )
-//            )
-//        }
+        tx_crudw_fecha.setOnClickListener{showDatePickerDialog()}
+//            var cal= Calendar.getInstance()
+//            var year = cal.get(Calendar.YEAR)
+//            var month = cal.get(Calendar.MONTH)
+//            var dayOfMonth = cal.get(Calendar.DAY_OF_MONTH)
+//
+//            val myFormat = "dd/MM/yyyy" // formato dia,mes,año
+//            val sdf = SimpleDateFormat(myFormat, Locale.US)
+//            tx_crudw_fecha.text = sdf.format(cal.time)
+
+
+//            val dpd= DatePickerDialog(actividad, DatePickerDialog.OnDateSetListener{ view, year, month, dayOfMonth ->
+//
+//                tx_crudw_fecha.setText("" + dayOfMonth + " / " + month + " / " + year)
+//            },year, month, dayOfMonth)
+//            dpd.show()
+
+        btn_save.setOnClickListener{
+            if(tx_crudw_nombre.text!=null && tx_crudw_cedula.text!=null && tx_crudw_correo.text!=null &&
+                tx_crudw_equipo.text!=null && tx_crudw_fecha.text!=null && tx_crudw_antiguedad.text!=null){
+                workdao.insertWorkers(
+                    Workers(
+                        UUID.randomUUID().toString(),
+                        tx_crudw_nombre.text.toString(),
+                        tx_crudw_cedula.text.toString().toInt(),
+                        tx_crudw_correo.text.toString(),
+                        tx_crudw_equipo.text.toString(),
+                        tx_crudw_fecha.text.toString().toLong(),
+                        tx_crudw_antiguedad.text.toString().toInt()
+                    )
+                )
+                Toast.makeText(context, "Registro Creado Correctamente", Toast.LENGTH_SHORT).show()
+                actividad.finish()
+            }else{
+                Toast.makeText(context, "Por favor complete el formulario " +
+                        "correctamente", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun showDatePickerDialog() {
+        val datePicker = DatePickerClass{day, month, year -> onDateSelected(day, month, year)}
+        datePicker.show(parentFragmentManager,"datePicker")
+    }
+
+    fun onDateSelected(day:Int, month:Int, year:Int){
 
     }
 

@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val fragmenthome= FragmentHome.newInstance("","")
         val fragmentvacation= FragmentVacationReque.newInstance("","")
+        val fragmentCrudWorkers= FragmentCrudWorkers.newInstance("","")
         when(item.itemId){
             R.id.m_item1 -> supportFragmentManager.beginTransaction()
                 .replace(R.id.contiene_Fragments,fragmenthome)
@@ -63,8 +64,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 "Clicked Item 4", Toast.LENGTH_SHORT).show()
             R.id.m_item5 -> Toast.makeText(applicationContext,
                 "Clicked Item 5", Toast.LENGTH_SHORT).show()
-            R.id.m_item6 -> Toast.makeText(applicationContext,
-                "Clicked Item 6", Toast.LENGTH_SHORT).show()
+            R.id.m_item6 -> supportFragmentManager.beginTransaction()
+                .replace(R.id.contiene_Fragments, fragmentCrudWorkers)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .addToBackStack(null)
+                .commit()
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
