@@ -16,7 +16,9 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentTransaction
 import com.example.vacation_manager_android.Fragments.FragmentHome
 import com.example.vacation_manager_android.Fragments.FragmentVacationReque
+import com.example.vacation_manager_android.databinding.FragmentSendNotifBinding
 import com.google.android.material.navigation.NavigationView
+import com.paulocabelloacha.sendnotif.SendNotifFragment
 
 class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -44,6 +46,7 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val fragmenthome= FragmentHome.newInstance("","")
         val fragmentvacation= FragmentVacationReque.newInstance("","")
+        val fragmentNotifEmail = SendNotifFragment.newInstance("", "")
         when(item.itemId){
             R.id.m_item1 -> supportFragmentManager.beginTransaction()
                 .replace(R.id.contiene_Fragments,fragmenthome)
@@ -56,7 +59,7 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 .addToBackStack(null)
                 .commit()
             R.id.m_item3 -> supportFragmentManager.beginTransaction()
-                .replace(R.id.contiene_Fragments, fragmenthome)
+                .replace(R.id.contiene_Fragments, fragmentNotifEmail)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .addToBackStack(null)
                 .commit()
