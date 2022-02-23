@@ -30,6 +30,7 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var fragmentHome: Fragment
     lateinit var fragmentvacation: Fragment
     lateinit var fragmentSendNotif: Fragment
+    lateinit var pendingsFragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +41,7 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fragmentHome= FragmentHome.newInstance("","")
         fragmentvacation= FragmentVacationReque.newInstance("","")
         fragmentSendNotif= SendNotifFragment.newInstance("","")
+        pendingsFragment = PendingsFragment.newInstance("","")
 
         toggle= ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
@@ -58,8 +60,7 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.m_item1 -> supportFragmentManager.popBackStack()
             R.id.m_item2 -> cargarFragment(R.id.m_item2)
             R.id.m_item3 -> cargarFragment(R.id.m_item3)
-            R.id.m_item4 -> Toast.makeText(applicationContext,
-                "Clicked Item 4", Toast.LENGTH_SHORT).show()
+            R.id.m_item4 -> cargarFragment(R.id.m_item4)
             R.id.m_item5 -> Toast.makeText(applicationContext,
                 "Clicked Item 5", Toast.LENGTH_SHORT).show()
             R.id.m_item6 ->
@@ -92,8 +93,12 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .replace(R.id.contiene_Fragments, fragmentSendNotif)
                     .addToBackStack(null)
                     .commit()}
-            R.id.m_item4 -> Toast.makeText(applicationContext,
-                "Clicked Item 4", Toast.LENGTH_SHORT).show()
+            R.id.m_item4 -> {
+                supportFragmentManager.popBackStack()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.contiene_Fragments, pendingsFragment)
+                    .addToBackStack(null)
+                    .commit()}
             R.id.m_item5 -> Toast.makeText(applicationContext,
                 "Clicked Item 5", Toast.LENGTH_SHORT).show()
             R.id.m_item6 -> Toast.makeText(applicationContext,

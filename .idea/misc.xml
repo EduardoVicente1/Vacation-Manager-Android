@@ -11,7 +11,6 @@
         <entry key="..\:/Users/Eduardo/AndroidStudioProjects/VacationManagerAndroid/app/src/main/res/layout/card_view.xml" value="0.16530797101449277" />
         <entry key="..\:/Users/Eduardo/AndroidStudioProjects/VacationManagerAndroid/app/src/main/res/layout/card_vire.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Eduardo/AndroidStudioProjects/VacationManagerAndroid/app/src/main/res/layout/fragment_managererror.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/Marce/Desktop/Proyecto_Bootcamp_final/Vacation-Manager-Android/app/src/main/res/layout/activity_login.xml" value="0.24259259259259258" />
         <entry key="..\:/Users/milga/Documents/agendame/Vacation-Manager-Android/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.15648148148148147" />
         <entry key="..\:/Users/milga/Documents/agendame/Vacation-Manager-Android/app/src/main/res/drawable-v24/ic_notification_important.xml" value="0.15648148148148147" />
         <entry key="..\:/Users/milga/Documents/agendame/Vacation-Manager-Android/app/src/main/res/drawable/borderedondo.xml" value="0.15648148148148147" />
@@ -20,6 +19,7 @@
         <entry key="..\:/Users/milga/Documents/agendame/Vacation-Manager-Android/app/src/main/res/layout/activity_login.xml" value="0.19114583333333332" />
         <entry key="..\:/Users/milga/Documents/agendame/Vacation-Manager-Android/app/src/main/res/layout/fragment_pendings.xml" value="0.17291666666666666" />
         <entry key="..\:/Users/milga/Documents/agendame/Vacation-Manager-Android/app/src/main/res/layout/item_pending_recycler.xml" value="0.19114583333333332" />
+        <entry key="..\:/Users/milga/Documents/agendame/Vacation-Manager-Android/app/src/main/res/menu/main_menu.xml" value="0.19114583333333332" />
       </map>
     </option>
   </component>
