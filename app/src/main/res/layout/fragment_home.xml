@@ -21,16 +21,12 @@
         android:background="#FFFF32"
         />
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_on_vacation_container"
         android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:text="Aqui va el Recycler"
-        android:textSize="90px"
-        android:background="#294820"
-        app:layout_constraintStart_toStartOf="@id/tx_cal"
-        app:layout_constraintEnd_toEndOf="@id/tx_cal"
-        app:layout_constraintTop_toBottomOf="@id/tx_cal"
-        android:layout_marginTop="60dp"
-        />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintLeft_toLeftOf="@id/tx_cal"
+        app:layout_constraintTop_toBottomOf="@+id/tx_cal" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

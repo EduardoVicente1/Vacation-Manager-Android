@@ -29,7 +29,11 @@ data class WorkersGetResponse(
             @SerializedName("work_team")
             val workTeam: String?,
             @SerializedName("worker_name")
-            val workerName: String?
+            val workerName: String?,
+            @SerializedName("email_sended")
+            val emailSender: Boolean?,
+            @SerializedName("on_vacation")
+            val onVacation: Boolean?
         )
     }
 

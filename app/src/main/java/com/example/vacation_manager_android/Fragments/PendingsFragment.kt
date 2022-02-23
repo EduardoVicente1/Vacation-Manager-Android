@@ -57,7 +57,7 @@ class PendingsFragment : Fragment() {
 
         var activityParent = activity as HostActivity
 
-        lateinit var pokemonAdapter : PendingWorkersAdapter
+        lateinit var pendingAdapter : PendingWorkersAdapter
         lateinit var recyclerVariable : RecyclerView
 
         retroFitConnection = RetrofitClient.getInstance()
@@ -70,10 +70,10 @@ class PendingsFragment : Fragment() {
                     if(response.body() != null) {
                         workersList = response.body()
                     }
-                    pokemonAdapter = PendingWorkersAdapter(workersList?.data)
+                    pendingAdapter = PendingWorkersAdapter(workersList?.data)
                     recyclerVariable = view.findViewById(R.id.recycler_container)
                     recyclerVariable.layoutManager = LinearLayoutManager(activityParent, LinearLayoutManager.VERTICAL, false)
-                    recyclerVariable.adapter = pokemonAdapter
+                    recyclerVariable.adapter = pendingAdapter
                 }
                 override fun onFailure(call: Call<WorkersGetResponse>, t: Throwable) {
                     Log.d("Error", t.toString())
