@@ -13,16 +13,23 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.vacation_manager_android.Fragments.FragmentHome
 import com.example.vacation_manager_android.Fragments.FragmentVacationReque
+import com.example.vacation_manager_android.Fragments.PendingsFragment
+import com.example.vacation_manager_android.databinding.FragmentSendNotifBinding
 import com.google.android.material.navigation.NavigationView
+import com.paulocabelloacha.sendnotif.SendNotifFragment
 
 class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     lateinit var toggle: ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout
     lateinit var navView: NavigationView
+    lateinit var fragmentHome: Fragment
+    lateinit var fragmentvacation: Fragment
+    lateinit var fragmentSendNotif: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +37,9 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         drawerLayout=findViewById(R.id.drawerLayout)
         navView=findViewById(R.id.nav_main)
+        fragmentHome= FragmentHome.newInstance("","")
+        fragmentvacation= FragmentVacationReque.newInstance("","")
+        fragmentSendNotif= SendNotifFragment.newInstance("","")
 
         toggle= ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
@@ -39,36 +49,61 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         navView.setNavigationItemSelectedListener(this)
 
+        cargarFragment(R.id.m_item1)
     }
     //Sobreescribir la Función para seleccionar item del menu
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        val fragmenthome= FragmentHome.newInstance("","")
-        val fragmentvacation= FragmentVacationReque.newInstance("","")
+
         when(item.itemId){
-            R.id.m_item1 -> supportFragmentManager.beginTransaction()
-                .replace(R.id.contiene_Fragments,fragmenthome)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .addToBackStack(null)
-                .commit()
-            R.id.m_item2 -> supportFragmentManager.beginTransaction()
-                .replace(R.id.contiene_Fragments, fragmentvacation)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .addToBackStack(null)
-                .commit()
-            R.id.m_item3 -> supportFragmentManager.beginTransaction()
-                .replace(R.id.contiene_Fragments, fragmenthome)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .addToBackStack(null)
-                .commit()
+            R.id.m_item1 -> supportFragmentManager.popBackStack()
+            R.id.m_item2 -> cargarFragment(R.id.m_item2)
+            R.id.m_item3 -> cargarFragment(R.id.m_item3)
+            R.id.m_item4 -> Toast.makeText(applicationContext,
+                "Clicked Item 4", Toast.LENGTH_SHORT).show()
+            R.id.m_item5 -> Toast.makeText(applicationContext,
+                "Clicked Item 5", Toast.LENGTH_SHORT).show()
+            R.id.m_item6 ->
+                Toast.makeText(applicationContext,
+                "Clicked Item 6", Toast.LENGTH_SHORT).show()
+            R.id.m_item7 -> Toast.makeText(applicationContext,
+                "Clicked Item 7", Toast.LENGTH_SHORT).show()
+        }
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
+    }
+    //función para seleccionar item del menu
+    fun cargarFragment(pantalla: Int){
+        when(pantalla){
+            R.id.m_item1 ->{
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.contiene_Fragments,fragmentHome)
+                    .setPrimaryNavigationFragment(fragmentHome)
+                    .commit()
+                }
+            R.id.m_item2 ->{
+                supportFragmentManager.popBackStack("BorrateCRJ", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.contiene_Fragments, fragmentvacation)
+                    .addToBackStack(null)
+                    .commit()}
+            R.id.m_item3 ->{
+                supportFragmentManager.popBackStack()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.contiene_Fragments, fragmentSendNotif)
+                    .addToBackStack(null)
+                    .commit()}
             R.id.m_item4 -> Toast.makeText(applicationContext,
                 "Clicked Item 4", Toast.LENGTH_SHORT).show()
             R.id.m_item5 -> Toast.makeText(applicationContext,
                 "Clicked Item 5", Toast.LENGTH_SHORT).show()
             R.id.m_item6 -> Toast.makeText(applicationContext,
                 "Clicked Item 6", Toast.LENGTH_SHORT).show()
+            R.id.m_item7 -> Toast.makeText(applicationContext,
+                "Clicked Item 7", Toast.LENGTH_SHORT).show()
         }
-        drawerLayout.closeDrawer(GravityCompat.START)
-        return true
+    }
+    fun removeFragmentHome(pantalla: Int){
+
     }
     //Sobreescribir la función para ocultar teclado al clickear en cualquier parte de la pantalla
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
@@ -92,5 +127,13 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START)
+        }else{
+            super.onBackPressed()
+        }
     }
 }

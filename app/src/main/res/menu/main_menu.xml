@@ -23,5 +23,12 @@
     <item
         android:id="@+id/m_item6"
         android:title="Configuraciones"
-        android:icon="@drawable/ic_settings_applications" />
+        android:icon="@drawable/ic_settings_applications">
+        <menu>
+            <item
+                android:id="@+id/m_item7"
+                android:title="Nuevo Empleado"
+                android:icon="@drawable/ic_person_add"/>
+        </menu>
+    </item>
 </menu>
