@@ -16,6 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentTransaction
 import com.example.vacation_manager_android.Fragments.FragmentHome
 import com.example.vacation_manager_android.Fragments.FragmentVacationReque
+import com.example.vacation_manager_android.Fragments.PendingsFragment
 import com.example.vacation_manager_android.databinding.FragmentSendNotifBinding
 import com.google.android.material.navigation.NavigationView
 import com.paulocabelloacha.sendnotif.SendNotifFragment
@@ -47,27 +48,37 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val fragmenthome= FragmentHome.newInstance("","")
         val fragmentvacation= FragmentVacationReque.newInstance("","")
         val fragmentNotifEmail = SendNotifFragment.newInstance("", "")
+        val pendingsFragment = PendingsFragment.newInstance("", "")
         when(item.itemId){
-            R.id.m_item1 -> supportFragmentManager.beginTransaction()
+            R.id.m_item1 ->
+                supportFragmentManager.beginTransaction()
                 .replace(R.id.contiene_Fragments,fragmenthome)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .addToBackStack(null)
                 .commit()
-            R.id.m_item2 -> supportFragmentManager.beginTransaction()
+            R.id.m_item2 ->
+                supportFragmentManager.beginTransaction()
                 .replace(R.id.contiene_Fragments, fragmentvacation)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .addToBackStack(null)
                 .commit()
-            R.id.m_item3 -> supportFragmentManager.beginTransaction()
+            R.id.m_item3 ->
+                supportFragmentManager.beginTransaction()
                 .replace(R.id.contiene_Fragments, fragmentNotifEmail)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .addToBackStack(null)
                 .commit()
-            R.id.m_item4 -> Toast.makeText(applicationContext,
-                "Clicked Item 4", Toast.LENGTH_SHORT).show()
-            R.id.m_item5 -> Toast.makeText(applicationContext,
+            R.id.m_item4 ->
+                supportFragmentManager.beginTransaction()
+                .replace(R.id.contiene_Fragments, pendingsFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .addToBackStack(null)
+                .commit()
+            R.id.m_item5 ->
+                Toast.makeText(applicationContext,
                 "Clicked Item 5", Toast.LENGTH_SHORT).show()
-            R.id.m_item6 -> Toast.makeText(applicationContext,
+            R.id.m_item6 ->
+                Toast.makeText(applicationContext,
                 "Clicked Item 6", Toast.LENGTH_SHORT).show()
         }
         drawerLayout.closeDrawer(GravityCompat.START)
