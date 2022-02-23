@@ -17,6 +17,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.vacation_manager_android.Fragments.FragmentHome
 import com.example.vacation_manager_android.Fragments.FragmentVacationReque
+import com.example.vacation_manager_android.Fragments.PendingsFragment
+import com.example.vacation_manager_android.databinding.FragmentSendNotifBinding
 import com.google.android.material.navigation.NavigationView
 import com.paulocabelloacha.sendnotif.SendNotifFragment
 
@@ -60,7 +62,8 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 "Clicked Item 4", Toast.LENGTH_SHORT).show()
             R.id.m_item5 -> Toast.makeText(applicationContext,
                 "Clicked Item 5", Toast.LENGTH_SHORT).show()
-            R.id.m_item6 -> Toast.makeText(applicationContext,
+            R.id.m_item6 ->
+                Toast.makeText(applicationContext,
                 "Clicked Item 6", Toast.LENGTH_SHORT).show()
             R.id.m_item7 -> Toast.makeText(applicationContext,
                 "Clicked Item 7", Toast.LENGTH_SHORT).show()
