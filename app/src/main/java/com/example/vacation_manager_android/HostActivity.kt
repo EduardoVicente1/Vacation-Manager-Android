@@ -17,7 +17,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.vacation_manager_android.Fragments.FragmentHome
 import com.example.vacation_manager_android.Fragments.FragmentVacationReque
+import com.example.vacation_manager_android.databinding.FragmentSendNotifBinding
 import com.google.android.material.navigation.NavigationView
+import com.paulocabelloacha.sendnotif.SendNotifFragment
 
 class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
