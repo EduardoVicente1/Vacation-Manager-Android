@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HostActivity"
-    android:id="@+id/drawerLayout">
+    android:id="@+id/drawerLayout"
+    android:background="@drawable/background_splash_screen"
+    android:alpha="0.8">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/contiene_Fragments"

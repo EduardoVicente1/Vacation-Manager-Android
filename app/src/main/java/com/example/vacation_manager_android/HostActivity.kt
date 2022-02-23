@@ -17,7 +17,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.vacation_manager_android.Fragments.FragmentHome
 import com.example.vacation_manager_android.Fragments.FragmentVacationReque
-import com.example.vacation_manager_android.databinding.FragmentSendNotifBinding
 import com.google.android.material.navigation.NavigationView
 import com.paulocabelloacha.sendnotif.SendNotifFragment
 
@@ -28,6 +27,7 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var navView: NavigationView
     lateinit var fragmentHome: Fragment
     lateinit var fragmentvacation: Fragment
+    lateinit var fragmentSendNotif: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +37,7 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navView=findViewById(R.id.nav_main)
         fragmentHome= FragmentHome.newInstance("","")
         fragmentvacation= FragmentVacationReque.newInstance("","")
+        fragmentSendNotif= SendNotifFragment.newInstance("","")
 
         toggle= ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
@@ -61,6 +62,8 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 "Clicked Item 5", Toast.LENGTH_SHORT).show()
             R.id.m_item6 -> Toast.makeText(applicationContext,
                 "Clicked Item 6", Toast.LENGTH_SHORT).show()
+            R.id.m_item7 -> Toast.makeText(applicationContext,
+                "Clicked Item 7", Toast.LENGTH_SHORT).show()
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
@@ -69,23 +72,21 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     fun cargarFragment(pantalla: Int){
         when(pantalla){
             R.id.m_item1 ->{
-//                supportFragmentManager.getBackStackEntryAt(supportFragmentManager.backStackEntryCount-1)
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.contiene_Fragments,fragmentHome)
+                    .add(R.id.contiene_Fragments,fragmentHome)
                     .setPrimaryNavigationFragment(fragmentHome)
                     .commit()
                 }
             R.id.m_item2 ->{
                 supportFragmentManager.popBackStack("BorrateCRJ", FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 supportFragmentManager.beginTransaction()
-                    .remove(fragmentHome)
                     .replace(R.id.contiene_Fragments, fragmentvacation)
                     .addToBackStack(null)
                     .commit()}
             R.id.m_item3 ->{
                 supportFragmentManager.popBackStack()
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.contiene_Fragments, fragmentHome)
+                    .replace(R.id.contiene_Fragments, fragmentSendNotif)
                     .addToBackStack(null)
                     .commit()}
             R.id.m_item4 -> Toast.makeText(applicationContext,
@@ -94,10 +95,11 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 "Clicked Item 5", Toast.LENGTH_SHORT).show()
             R.id.m_item6 -> Toast.makeText(applicationContext,
                 "Clicked Item 6", Toast.LENGTH_SHORT).show()
+            R.id.m_item7 -> Toast.makeText(applicationContext,
+                "Clicked Item 7", Toast.LENGTH_SHORT).show()
         }
     }
     fun removeFragmentHome(pantalla: Int){
-
 
     }
     //Sobreescribir la función para ocultar teclado al clickear en cualquier parte de la pantalla
