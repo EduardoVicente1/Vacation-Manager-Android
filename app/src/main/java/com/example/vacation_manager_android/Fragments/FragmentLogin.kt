@@ -112,7 +112,7 @@ class FragmentLogin : Fragment() {
             //control db no retorna vacio
             if(usuario==userprueba&&password==passprueba) {
                 esCorrecto=true
-                Toast.makeText(requireContext(),"Exito!", Toast.LENGTH_SHORT).show()
+
             }else if(usuario!=userprueba && password!=passprueba){
                 //usuario y contraseña incorrectas
                 error.setText("Usuario y contraseña incorrectas")
