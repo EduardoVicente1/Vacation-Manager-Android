@@ -11,19 +11,12 @@
         <entry key="..\:/Users/Eduardo/AndroidStudioProjects/VacationManagerAndroid/app/src/main/res/layout/card_view.xml" value="0.16530797101449277" />
         <entry key="..\:/Users/Eduardo/AndroidStudioProjects/VacationManagerAndroid/app/src/main/res/layout/card_vire.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Eduardo/AndroidStudioProjects/VacationManagerAndroid/app/src/main/res/layout/fragment_managererror.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/Moon/Desktop/Proyecto True/Vacation-Manager-Android/app/src/main/res/drawable/splashscreen.xml" value="0.298" />
-        <entry key="..\:/Users/Moon/Desktop/Proyecto True/Vacation-Manager-Android/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Moon/Desktop/Proyecto True/Vacation-Manager-Android/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Moon/Desktop/Proyecto True/Vacation-Manager-Android/app/src/main/res/layout/activity_splash_screen.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Moon/Desktop/Proyecto True/Vacation-Manager-Android/app/src/main/res/layout/fragment_login.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Moon/Desktop/Proyecto True/Vacation-Manager-Android/app/src/main/res/layout/fragment_recordar_pass.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Moon/Desktop/Proyecto True/Vacation-Manager-Android/app/src/main/res/layout/fragment_register.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Moon/Desktop/Proyecto True/Vacation-Manager-Android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.298" />
-        <entry key="..\:/Users/Moon/Desktop/Proyecto True/Vacation-Manager-Android/app/src/main/res/mipmap-anydpi-v26/icon1.xml" value="0.298" />
+        <entry key="..\:/Users/Marce/Desktop/Proyecto_Bootcamp_final/Vacation-Manager-Android/app/src/main/res/layout/activity_host.xml" value="0.24259259259259258" />
         <entry key="..\:/Users/Marce/Desktop/Proyecto_Bootcamp_final/Vacation-Manager-Android/app/src/main/res/layout/activity_login.xml" value="0.24259259259259258" />
         <entry key="..\:/Users/Marce/Desktop/Proyecto_Bootcamp_final/Vacation-Manager-Android/app/src/main/res/layout/fragment_home.xml" value="0.2364102564102564" />
         <entry key="..\:/Users/Marce/Desktop/Proyecto_Bootcamp_final/Vacation-Manager-Android/app/src/main/res/layout/fragment_pendings.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Marce/Desktop/Proyecto_Bootcamp_final/Vacation-Manager-Android/app/src/main/res/layout/fragment_send_notif.xml" value="0.24259259259259258" />
+        <entry key="..\:/Users/Marce/Desktop/Proyecto_Bootcamp_final/Vacation-Manager-Android/app/src/main/res/layout/item_calendar_worker_recycler.xml" value="0.264" />
         <entry key="..\:/Users/Marce/Desktop/Proyecto_Bootcamp_final/Vacation-Manager-Android/app/src/main/res/layout/item_on_vacation_worker_recycler.xml" value="0.2" />
         <entry key="..\:/Users/Marce/Desktop/Proyecto_Bootcamp_final/Vacation-Manager-Android/app/src/main/res/layout/item_pending_recycler.xml" value="0.2" />
         <entry key="..\:/Users/Marce/Desktop/Proyecto_Bootcamp_final/Vacation-Manager-Android/app/src/main/res/menu/main_menu.xml" value="0.24259259259259258" />
