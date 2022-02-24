@@ -29,6 +29,18 @@
                 android:id="@+id/m_item7"
                 android:title="Nuevo Empleado"
                 android:icon="@drawable/ic_person_add"/>
+            <item
+                android:id="@+id/m_itemv1"
+                android:title=""
+                />
+            <item
+                android:id="@+id/m_itemv2"
+                android:title=""
+                />
+            <item
+                android:id="@+id/m_item8"
+                android:title="Cerrar Sesión"
+                android:icon="@drawable/ic_logout"/>
         </menu>
     </item>
 </menu>

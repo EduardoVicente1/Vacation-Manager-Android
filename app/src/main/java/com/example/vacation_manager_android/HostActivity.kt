@@ -61,6 +61,7 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.m_item5 -> cargarFragment(R.id.m_item5)
             R.id.m_item6 -> cargarFragment(R.id.m_item6)
             R.id.m_item7 -> cargarFragment(R.id.m_item7)
+            R.id.m_item8 -> cargarFragment(R.id.m_item8)
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
@@ -93,6 +94,7 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 "Clicked Item 6", Toast.LENGTH_SHORT).show()
             R.id.m_item7 -> Toast.makeText(applicationContext,
                 "Clicked Item 7", Toast.LENGTH_SHORT).show()
+            R.id.m_item8 -> finish()
         }
     }
     //Sobreescribir la función para ocultar teclado al clickear en cualquier parte de la pantalla
