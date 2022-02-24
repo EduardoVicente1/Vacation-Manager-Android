@@ -1,6 +1,7 @@
 package com.example.vacation_manager_android.Fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,12 @@ import android.widget.EditText
 import android.widget.TextView
 import com.example.vacation_manager_android.Errorcsm
 import com.example.vacation_manager_android.R
+import com.example.vacation_manager_android.Retrofit.ApiEndpoints
+import com.example.vacation_manager_android.Retrofit.RetrofitClient
+import com.example.vacation_manager_android.data_classes.UserGetResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,7 +36,10 @@ class FragmentRecordarPass : Fragment() {
     lateinit var txt_campomail: EditText
     lateinit var btn_token: Button
     lateinit var errortxt: TextView
+    var eMail= ""
 
+    lateinit var retroFitConnection : ApiEndpoints
+    private var userbd: UserGetResponse?= null
     val errorcsm = Errorcsm()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +59,20 @@ class FragmentRecordarPass : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        retroFitConnection= RetrofitClient.getInstance()
+        retroFitConnection.getUser().enqueue(
+
+            object : Callback<UserGetResponse> {
+                override fun onResponse(call: Call<UserGetResponse>, response: Response<UserGetResponse>) {
+                    if(response.body() != null) {
+                        userbd = response.body()
+                    }
+                }
+                override fun onFailure(call: Call<UserGetResponse>, t: Throwable) {
+                    Log.d("Error", t.toString())
+                }
+            }
+        )
         txt_campomail=view.findViewById(R.id.txt_correo)
         btn_token=view.findViewById(R.id.btn_validarcorreo)
         errortxt=activity?.findViewById(R.id.txt_error)!!
@@ -61,11 +85,30 @@ class FragmentRecordarPass : Fragment() {
         btn_token.setOnClickListener(){
             if(txt_campomail.text.toString().isNotEmpty()){
                 //envio del token al correo dado solo si se encuentra registrado el correo
+                if(checkemail(txt_campomail.text.toString())){
+                    //aqui envio el correo
+                }else{
+                    errortxt.text="E-mail no registrado"
+                    errorcsm.texterror(errortxt,requireContext())
+                }
             }else{
                 errortxt.text="Ingrese su e-mail!"
                 errorcsm.texterror(errortxt,requireContext())
             }
         }
+    }
+
+    fun checkemail(email: String): Boolean{
+        var existeMail=false
+        if(userbd!=null){
+            for(i in userbd?.data?.indices!!){
+                if(email== userbd?.data?.get(i)?.attributes?.userEmail.toString()){
+                    existeMail=true
+                    eMail=email
+                }
+            }
+        }
+        return existeMail
     }
 
 
