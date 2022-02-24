@@ -10,6 +10,9 @@ import android.widget.EditText
 import android.widget.TextView
 import com.example.vacation_manager_android.Errorcsm
 import com.example.vacation_manager_android.R
+import com.example.vacation_manager_android.Retrofit.ApiEndpoints
+import com.example.vacation_manager_android.data_classes.UserGetResponse
+import com.example.vacation_manager_android.data_classes.UserInfoRegister
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,6 +36,9 @@ class FragmentRegister : Fragment() {
     lateinit var txt_pass2: EditText
     val errorc=Errorcsm()
     lateinit var txterror: TextView
+
+    lateinit var retroFitConnection : ApiEndpoints
+    private var userbd: UserInfoRegister?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

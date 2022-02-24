@@ -1,11 +1,10 @@
 package com.example.vacation_manager_android.Retrofit
 
 import com.example.vacation_manager_android.data_classes.UserGetResponse
+import com.example.vacation_manager_android.data_classes.UserInfoRegister
 import com.example.vacation_manager_android.data_classes.WorkersGetResponse
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ApiEndpoints {
     @GET("/api/workers-inf/")
@@ -13,5 +12,8 @@ interface ApiEndpoints {
 
     @GET("/api/users-backups/")
     fun getUser(): Call<UserGetResponse>
+
+    @POST("/api/users-backups/")
+    fun addUser(@Body userData: UserInfoRegister): Call<UserInfoRegister>
 
 }
