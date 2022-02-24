@@ -2,19 +2,40 @@ package com.example.vacation_manager_android.adapters
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.ScrollCaptureCallback
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vacation_manager_android.R
 import com.example.vacation_manager_android.data_classes.WorkersGetResponse
 
-class PendingWorkersAdapter(var pendingWorkersList : List<WorkersGetResponse.Data?>?) :  RecyclerView.Adapter<PendingWorkersAdapter.PendingWorkersHolder>(){
+class PendingWorkersAdapter(var pendingWorkersList : List<WorkersGetResponse.Data?>?, var callback: (workerData : WorkersGetResponse.Data?, action : String) -> Unit ) :  RecyclerView.Adapter<PendingWorkersAdapter.PendingWorkersHolder>(){
 
     inner class PendingWorkersHolder (view: View) : RecyclerView.ViewHolder(view){
-        var pendingWorkerName : TextView= view.findViewById(R.id.pending_worker_name)
+        var pendingWorkerName : TextView = view.findViewById(R.id.pending_worker_name)
+        var pendingWorkerTeam : TextView = view.findViewById(R.id.pending_worker_team)
+
+        var pendingWorkerAccept : ImageView = view.findViewById(R.id.pending_worker_accept_button)
+        var pendingWorkerReject : ImageView = view.findViewById(R.id.pending_worker_reject_button)
+        var pendingWorkerEdit : ImageView = view.findViewById(R.id.pending_worker_edit_button)
+
         fun bind(elementList: WorkersGetResponse.Data?){
             pendingWorkerName.text = elementList?.attributes?.workerName.toString()
+            pendingWorkerTeam.text = elementList?.attributes?.workTeam.toString()
+
+            pendingWorkerAccept.setOnClickListener{
+                callback(elementList, "accept")
+            }
+
+            pendingWorkerReject.setOnClickListener{
+                callback(elementList, "reject")
+            }
+
+            pendingWorkerEdit.setOnClickListener{
+                callback(elementList, "edit")
+            }
         }
     }
 

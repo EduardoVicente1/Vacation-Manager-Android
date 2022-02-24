@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class WorkersGetResponse(
     @SerializedName("data")
-    val `data`: List<Data?>?,
+    val `data`: ArrayList<Data?>?,
     @SerializedName("meta")
     val meta: Meta?
 ) {
@@ -33,8 +33,9 @@ data class WorkersGetResponse(
             @SerializedName("email_sended")
             val emailSended: Boolean?,
             @SerializedName("on_vacation")
-            val onVacation: Boolean?
-
+            val onVacation: Boolean?,
+            @SerializedName("end_date")
+            val endDate : String?
         )
     }
 

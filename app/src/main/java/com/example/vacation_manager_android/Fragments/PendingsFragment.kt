@@ -1,11 +1,13 @@
 package com.example.vacation_manager_android.Fragments
 
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vacation_manager_android.HostActivity
@@ -13,6 +15,7 @@ import com.example.vacation_manager_android.R
 import com.example.vacation_manager_android.Retrofit.ApiEndpoints
 import com.example.vacation_manager_android.Retrofit.RetrofitClient
 import com.example.vacation_manager_android.adapters.PendingWorkersAdapter
+import com.example.vacation_manager_android.data_classes.WorkerPutRequest
 import com.example.vacation_manager_android.data_classes.WorkersGetResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,8 +36,14 @@ class PendingsFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    lateinit var activityParent : Activity
+
+    lateinit var pendingWorkersAdapter : PendingWorkersAdapter
+    lateinit var recyclerVariable : RecyclerView
+
     lateinit var retroFitConnection : ApiEndpoints
-    private var workersList: WorkersGetResponse?= null
+    private var allWorkersList: WorkersGetResponse? = null
+    private var filteredWorkersList : List<WorkersGetResponse.Data?>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,10 +64,7 @@ class PendingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var activityParent = activity as HostActivity
-
-        lateinit var pokemonAdapter : PendingWorkersAdapter
-        lateinit var recyclerVariable : RecyclerView
+        activityParent = activity as HostActivity
 
         retroFitConnection = RetrofitClient.getInstance()
         retroFitConnection.getAllWorkers().enqueue(
@@ -68,12 +74,24 @@ class PendingsFragment : Fragment() {
                     Log.d("RESPONSE", response.body().toString())
 
                     if(response.body() != null) {
-                        workersList = response.body()
+                        allWorkersList = response.body()
+
+                        filteredWorkersList = allWorkersList?.data?.filter {
+                            it?.attributes?.emailSended == true
+                        }
                     }
-                    pokemonAdapter = PendingWorkersAdapter(workersList?.data)
+
+                    pendingWorkersAdapter = PendingWorkersAdapter(filteredWorkersList){
+                        workerData, action ->
+                        when(action){
+                            "accept" -> acceptVacation(workerData)
+                            "reject" -> rejectVacation(workerData)
+                            "edit" -> editVacation(workerData)
+                        }
+                    }
                     recyclerVariable = view.findViewById(R.id.recycler_container)
                     recyclerVariable.layoutManager = LinearLayoutManager(activityParent, LinearLayoutManager.VERTICAL, false)
-                    recyclerVariable.adapter = pokemonAdapter
+                    recyclerVariable.adapter = pendingWorkersAdapter
                 }
                 override fun onFailure(call: Call<WorkersGetResponse>, t: Throwable) {
                     Log.d("Error", t.toString())
@@ -81,6 +99,55 @@ class PendingsFragment : Fragment() {
             }
         )
 
+    }
+
+    private fun editVacation(workerData: WorkersGetResponse.Data?) {
+        Log.d("Button", "editVacation")
+
+    }
+
+    private fun rejectVacation(workerData: WorkersGetResponse.Data?) {
+        Log.d("Button", "rejectVacation")
+    }
+
+    private fun acceptVacation(workerData: WorkersGetResponse.Data?) {
+        Log.d("Button", "acceptVacation")
+        var newWorkerData = WorkerPutRequest(WorkerPutRequest.Data(null,null,null,null,null,null,null))
+        newWorkerData!!.data!!.emailSended = workerData!!.attributes!!.emailSended
+        newWorkerData!!.data!!.endDate = workerData!!.attributes!!.endDate
+        newWorkerData!!.data!!.onVacation = true
+        newWorkerData!!.data!!.startDate = workerData!!.attributes!!.startDate
+        newWorkerData!!.data!!.workMail = workerData!!.attributes!!.workMail
+        newWorkerData!!.data!!.workTeam = workerData!!.attributes!!.workTeam
+        newWorkerData!!.data!!.workerName = workerData!!.attributes!!.workerName
+        Log.d("newWorkerData",newWorkerData.toString())
+
+        retroFitConnection = RetrofitClient.getInstance()
+        retroFitConnection.updateWorker(workerData.id.toString(), newWorkerData).enqueue(
+
+            object : Callback<Any> {
+                override fun onResponse(
+                    call: Call<Any>,
+                    response: Response<Any>
+                ) {
+                    if(response.body() != null) {
+                        Log.d("RESPONSE", response.body().toString())
+                    }
+                }
+
+                override fun onFailure(call: Call<Any>, t: Throwable) {
+                    Log.d("Error", t.toString())
+                }
+//                override fun onResponse(call: Call<WorkerPutRequest>, response: Response<WorkerPutRequest>) {
+//                    if(response.body() != null) {
+//                        Log.d("RESPONSE", response.body().toString())
+//                    }
+//                }
+//                override fun onFailure(call: Call<WorkerPutRequest>, t: Throwable) {
+//                    Log.d("Error", t.toString())
+//                }
+            }
+        )
     }
 
     companion object {
