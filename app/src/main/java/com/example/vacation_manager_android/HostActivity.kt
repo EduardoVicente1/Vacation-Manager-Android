@@ -2,7 +2,6 @@ package com.example.vacation_manager_android
 
 import android.content.Context
 import android.graphics.Rect
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -11,13 +10,12 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.example.vacation_manager_android.Fragments.FragmentHome
 import com.example.vacation_manager_android.Fragments.FragmentVacationReque
-import com.example.vacation_manager_android.Fragments.PendingsFragment
-import com.example.vacation_manager_android.databinding.FragmentSendNotifBinding
 import com.google.android.material.navigation.NavigationView
 import com.paulocabelloacha.sendnotif.SendNotifFragment
 
