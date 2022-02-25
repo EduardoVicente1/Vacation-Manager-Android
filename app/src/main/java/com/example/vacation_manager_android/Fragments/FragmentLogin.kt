@@ -43,8 +43,8 @@ class FragmentLogin : Fragment() {
     lateinit var chk_recordar: CheckBox
     lateinit var txt_olvidado: TextView
     lateinit var error: TextView
-    var userprueba="asd"
-    var passprueba="123"
+    var userprueba=""
+    var passprueba=""
     private lateinit var sharedP: SharedPreferences
 
     var passDesEncript=""
