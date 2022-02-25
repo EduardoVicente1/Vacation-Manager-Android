@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.vacation_manager_android.Adapters.OnVacationWorkersAdapter
+import com.example.vacation_manager_android.Adapters.CalendarWorkersAdapter
 import com.example.vacation_manager_android.ArrayWorkerClass
 import com.example.vacation_manager_android.HostActivity
 import com.example.vacation_manager_android.R
@@ -65,7 +65,7 @@ class FragmentCalendar : Fragment() {
 
         calendario = view.findViewById(R.id.calendar)
 
-        lateinit var onVacationWorkersAdapter: OnVacationWorkersAdapter
+        lateinit var onVacationWorkersAdapter: CalendarWorkersAdapter
         lateinit var recyclerVariable : RecyclerView
 
         retroFitConnection = RetrofitClient.getInstance()
@@ -81,7 +81,7 @@ class FragmentCalendar : Fragment() {
                 if (response.body() != null) {
                     workersList = response.body()
                 }
-                onVacationWorkersAdapter = OnVacationWorkersAdapter(workersList?.data)
+                onVacationWorkersAdapter = CalendarWorkersAdapter(workersList?.data)
                 recyclerVariable = view.findViewById(R.id.recycler_on_vacation_container)
                 recyclerVariable.layoutManager =
                     LinearLayoutManager(activityParent, LinearLayoutManager.VERTICAL, false)
@@ -90,10 +90,10 @@ class FragmentCalendar : Fragment() {
 
                     /*Ciclo para almacenar los empleados con vacaciones en una Lista*/
                 for(worker in workersList?.data!!){
-                    if(worker!!.attributes!!.finish != null){
+                    if(worker!!.attributes!!.endDate != null){
                         listaVacaciones.add(ArrayWorkerClass(nombre=worker!!.attributes!!.workerName.toString(),
                             fecha_inicio=worker!!.attributes!!.startDate.toString(),
-                            fecha_final=worker!!.attributes!!.finish.toString()))
+                            fecha_final=worker!!.attributes!!.endDate.toString()))
                     }
                 }
 

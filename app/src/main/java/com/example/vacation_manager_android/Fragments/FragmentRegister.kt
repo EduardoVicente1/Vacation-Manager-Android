@@ -1,6 +1,7 @@
 package com.example.vacation_manager_android.Fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +9,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import com.example.vacation_manager_android.Encriptado
 import com.example.vacation_manager_android.Errorcsm
 import com.example.vacation_manager_android.R
+import com.example.vacation_manager_android.Retrofit.ApiEndpoints
+import com.example.vacation_manager_android.Retrofit.RetrofitClient
+import com.example.vacation_manager_android.data_classes.UserGetResponse
+import com.example.vacation_manager_android.data_classes.UserInfoRegister
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,6 +43,14 @@ class FragmentRegister : Fragment() {
     val errorc=Errorcsm()
     lateinit var txterror: TextView
 
+    lateinit var retroFitConnection : ApiEndpoints
+    private var userInfo: UserInfoRegister?= null
+    private var userbd: UserGetResponse?= null
+    var passEncript=""
+
+
+    private var encripDesencrip= Encriptado()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -52,6 +69,24 @@ class FragmentRegister : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        retroFitConnection= RetrofitClient.getInstance()
+        retroFitConnection.getUser().enqueue(
+
+            object : Callback<UserGetResponse> {
+                override fun onResponse(call: Call<UserGetResponse>, response: Response<UserGetResponse>) {
+                   // Log.d("RESPONSE", response.body().toString())
+
+                    if(response.body() != null) {
+                        userbd = response.body()
+                    }
+                }
+                override fun onFailure(call: Call<UserGetResponse>, t: Throwable) {
+                  //  Log.d("Error", t.toString())
+                }
+            }
+        )
+
         txt_user=view.findViewById(R.id.txt_newuser)
         txt_email=view.findViewById(R.id.txt_email)
         txt_pass1=view.findViewById(R.id.txt_npass1)
@@ -83,27 +118,48 @@ class FragmentRegister : Fragment() {
             }
     }
 
+    /*************************funciones***************************/
 
     fun registrarse(){
         btn_registro.setOnClickListener(){
             //verificar que los campos no esten vacios
             if(txt_user.text.toString().isNotEmpty()&& txt_pass1.text.toString().isNotEmpty()&&txt_email.text.toString().isNotEmpty()) {
                 /***Se verifica que el user no este registrado***/
-                //if(consultadb(user)==null){
-                /*****Si no esta registrado se verifica que las pass sean iguales*****/
-                    if(txt_pass1.text.toString()==txt_pass2.text.toString()){
-                        //se guarda en la base de datos
-                        txterror.text="Guardado con exito"
-                        errorc.texterror(txterror,requireContext())
-                    parentFragmentManager.popBackStack()
-                    }else{
-                        txterror.text="No coinciden las contraseñas"
-                        errorc.texterror(txterror,requireContext())
+                if(noExisteUser(txt_user.text.toString())){
+                    if(noExisteMail(txt_email.text.toString())) {
+                        /*****Si no esta registrado se verifica que las pass sean iguales*****/
+                        if (txt_pass1.text.toString() == txt_pass2.text.toString()) {
+                            //se guarda en la base de datos
+
+                                passEncript=encripDesencrip.encriptar(txt_pass1.text.toString(),encripDesencrip.clave)
+                            userInfo = UserInfoRegister(
+                                UserInfoRegister.Data(
+                                    password = passEncript,
+                                    tokenApp = "AAAAAAAAAAA",
+                                    userEmail = txt_email.text.toString(),
+                                    username = txt_user.text.toString()
+                                )
+                            )
+                            addUser(userInfo!!) {}/***se añade a la base de datos***/
+                            txterror.text = "Guardado con exito"
+                            errorc.texterror(txterror, requireContext())
+                            var frlogin=FragmentLogin.newInstance("","")
+                            parentFragmentManager.beginTransaction()
+                                .replace(R.id.fragment_container,frlogin)
+                                .commit()
+                            /***********se vuelve al login***********/
+                            /***********************************************************************/
+                            /**A partir de aqui el manejo de errores**/
+                        } else {
+                            txterror.text = "No coinciden las contraseñas"
+                            errorc.texterror(txterror, requireContext())
+                        }
                     }
-                //}else{
-                //      txterror.text="Usuario ya registrado,elija otro username"
-                //      txt_user.text=""
-                // }
+                }else{
+                    txterror.text="Usuario ya registrado"
+                    errorc.texterror(txterror,requireContext())
+                    txt_user.setText("")
+                 }
             }else if(txt_user.text.toString().isNotEmpty()&&txt_email.text.toString().isNotEmpty()){
                 txterror.text="Contraseña no puede estar vacia"
                 errorc.texterror(txterror,requireContext())
@@ -117,11 +173,48 @@ class FragmentRegister : Fragment() {
                 txterror.text="Todos los campos deben ser rellenados!"
                 errorc.texterror(txterror,requireContext())
             }
-
-
-
         }
-
-
     }
+    /**verificamos que no exista user igual**/
+    fun noExisteUser(user: String): Boolean{
+        var noExiste=true
+
+        if(userbd!=null) {
+            for (i in userbd?.data?.indices!!){
+                if(userbd!!.data?.get(i)?.attributes?.username.toString()==user){
+                    noExiste=false
+                }
+            }
+        }
+        return noExiste
+    }
+    /**verificamos que no se repita el email**/
+    fun noExisteMail(mail:String):Boolean{
+        var noExiste=true
+        for (i in userbd?.data?.indices!!) {
+            if (userbd!!.data?.get(i)?.attributes?.userEmail.toString() == mail) {
+                txterror.text = "E-mail ya registrado"
+                txt_email.setText("")
+                errorc.texterror(txterror, requireContext())
+                noExiste = false
+            }
+        }
+        return noExiste
+    }
+    /*******agregamos el nuevo user*******/
+    fun addUser(userData: UserInfoRegister, onResult: (UserInfoRegister?) -> Unit){
+        retroFitConnection.addUser(userData).enqueue(
+            object : Callback<UserInfoRegister> {
+                override fun onFailure(call: Call<UserInfoRegister>, t: Throwable) {
+                    onResult(null)
+                }
+                override fun onResponse( call: Call<UserInfoRegister>, response: Response<UserInfoRegister>) {
+                    val addedUser = response.body()
+                    onResult(addedUser)
+                }
+            }
+        )
+    }
+
+
 }

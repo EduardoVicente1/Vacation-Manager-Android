@@ -11,7 +11,8 @@
         android:theme="@style/Theme.VacationManagerAndroid">
         <activity
             android:name=".HostActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <!--
      Set custom default icon. This is used when no icon is set for incoming notification messages.
      See README(https://goo.gl/l4GJaQ) for more.
@@ -30,7 +31,8 @@
         <activity
             android:name=".LoginActivity"
             android:exported="false"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SplashScreen"
             android:exported="true"

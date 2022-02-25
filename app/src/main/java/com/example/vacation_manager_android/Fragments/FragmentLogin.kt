@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +13,13 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
-import com.example.vacation_manager_android.Errorcsm
-import com.example.vacation_manager_android.HostActivity
-import com.example.vacation_manager_android.ObjectSP
-import com.example.vacation_manager_android.R
+import com.example.vacation_manager_android.*
+import com.example.vacation_manager_android.Retrofit.ApiEndpoints
+import com.example.vacation_manager_android.Retrofit.RetrofitClient
+import com.example.vacation_manager_android.data_classes.UserGetResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,9 +47,16 @@ class FragmentLogin : Fragment() {
     var passprueba="123"
     private lateinit var sharedP: SharedPreferences
 
+    var passDesEncript=""
+    private var encripDesencrip= Encriptado()
+
     lateinit var txtRegistro: TextView
 
     val errorcsm = Errorcsm()
+
+    lateinit var retroFitConnection : ApiEndpoints
+    private var userbd: UserGetResponse?= null
+
     /**********************************************/
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,6 +77,23 @@ class FragmentLogin : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        retroFitConnection=RetrofitClient.getInstance()
+        retroFitConnection.getUser().enqueue(
+
+            object : Callback<UserGetResponse> {
+                override fun onResponse(call: Call<UserGetResponse>, response: Response<UserGetResponse>) {
+                    Log.d("RESPONSE", response.body().toString())
+
+                    if(response.body() != null) {
+                        userbd = response.body()
+                    }
+                }
+                override fun onFailure(call: Call<UserGetResponse>, t: Throwable) {
+                    Log.d("Error", t.toString())
+                }
+            }
+        )
         /************************************************/
         val masterKey= MasterKey.Builder(requireContext().applicationContext, MasterKey.DEFAULT_MASTER_KEY_ALIAS)
             .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
@@ -86,6 +114,8 @@ class FragmentLogin : Fragment() {
         error=activity?.findViewById(R.id.txt_error)!!
         txtRegistro=view.findViewById(R.id.txt_registrarse)
 
+
+
         /*******Llamado a funciones*******/
         check()//inicializa los textview con el user y pass recordados
         login()
@@ -93,7 +123,7 @@ class FragmentLogin : Fragment() {
         registrar()
         /*********************************/
 
-
+        /*********************************/
     }
     /******************Funciones*******************/
     fun login(){
@@ -101,7 +131,9 @@ class FragmentLogin : Fragment() {
             if(verificar(txt_usuario.text.toString(),txt_contrasenia.text.toString())){
                 //loguea
                 checklogin()//guarda los valores de user y pass si esta seleccionado
-                startActivity(Intent(requireContext(), HostActivity::class.java))
+                var intentHost=Intent(requireContext(), HostActivity::class.java)
+                    intentHost.putExtra("user",userprueba)
+                startActivity(intentHost)
             }
         }
     }
@@ -110,20 +142,21 @@ class FragmentLogin : Fragment() {
         var esCorrecto= false
         if(usuario.isNotEmpty()&&password.isNotEmpty()){
             //control db no retorna vacio
-            if(usuario==userprueba&&password==passprueba) {
-                esCorrecto=true
+            if(checkdatabase(usuario)) {
+                if (usuario == userprueba && password == passprueba) {
+                    esCorrecto = true
 
-            }else if(usuario!=userprueba && password!=passprueba){
-                //usuario y contraseña incorrectas
-                error.setText("Usuario y contraseña incorrectas")
-                errorcsm.texterror(error,requireContext())
-            }else if(password!=passprueba){
-                //contraseña incorrecta
-                error.setText("Contraseña incorrecta")
-                errorcsm.texterror(error,requireContext())
-            }else if (usuario!=userprueba){
-                //usuario incorrecto
-                error.setText("Usuario incorrecto")
+                } else if (usuario != userprueba && password != passprueba) {
+                    //usuario y contraseña incorrectas
+                    error.setText("Usuario y contraseña incorrectas")
+                    errorcsm.texterror(error, requireContext())
+                } else if (password != passprueba) {
+                    //contraseña incorrecta
+                    error.setText("Contraseña incorrecta")
+                    errorcsm.texterror(error, requireContext())
+                }
+            }else{
+                error.text="Ese usuario no existe"
                 errorcsm.texterror(error,requireContext())
             }
         }else if(usuario.isNotEmpty()){
@@ -163,7 +196,7 @@ class FragmentLogin : Fragment() {
         }
     }
 
-    fun olvidado() {
+    fun olvidado() {//fragment para recuperar la contraseña
         txt_olvidado.setOnClickListener {
            var fr_olvidado = FragmentRecordarPass.newInstance("","")
             parentFragmentManager
@@ -174,7 +207,7 @@ class FragmentLogin : Fragment() {
         }
     }
 
-    fun registrar(){
+    fun registrar(){//fragment para registrar usuario
         txtRegistro.setOnClickListener(){
             var fr_registrar = FragmentRegister.newInstance("","")
             parentFragmentManager
@@ -184,6 +217,23 @@ class FragmentLogin : Fragment() {
                 .commit()
         }
     }
+
+    fun checkdatabase(usuario:String): Boolean{
+        var existeUser=false
+        if(userbd!=null) {
+            for (i in userbd?.data?.indices!!){
+                if(userbd!!.data?.get(i)?.attributes?.username.toString()==usuario){
+                    existeUser=true
+                    userprueba=usuario
+                    passprueba=userbd!!.data?.get(i)?.attributes?.password.toString()
+                    passDesEncript=encripDesencrip.desencriptar(passprueba,encripDesencrip.clave)
+                    passprueba=passDesEncript
+                }
+            }
+        }
+        return existeUser
+    }
+
     /********************************************************/
     companion object {
         /**

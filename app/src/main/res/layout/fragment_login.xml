@@ -37,6 +37,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
+        android:text="asd"
         android:hint="Usuario"
         android:fontFamily="@font/mplusrounded1cregular"
         android:inputType="textPersonName"
@@ -62,6 +63,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
+        android:text="123"
         android:hint="Contraseña"
         android:fontFamily="@font/mplusrounded1cregular"
         android:inputType="textPassword"
@@ -117,7 +119,7 @@
         android:fontFamily="@font/mplusrounded1cregular"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login"
         android:layout_margin="20dp"
         android:gravity="center|bottom"/>
 

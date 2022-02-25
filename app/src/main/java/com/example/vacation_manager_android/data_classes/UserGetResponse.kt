@@ -3,7 +3,7 @@ package com.example.vacation_manager_android.data_classes
 
 import com.google.gson.annotations.SerializedName
 
-data class WorkersGetResponse(
+data class UserGetResponse(
     @SerializedName("data")
     var `data`: List<Data?>?,
     @SerializedName("meta")
@@ -18,24 +18,18 @@ data class WorkersGetResponse(
         data class Attributes(
             @SerializedName("createdAt")
             var createdAt: String?,
+            @SerializedName("password")
+            var password: String?,
             @SerializedName("publishedAt")
             var publishedAt: String?,
-            @SerializedName("start_date")
-            var startDate: String?,
+            @SerializedName("token_app")
+            var tokenApp: String?,
             @SerializedName("updatedAt")
             var updatedAt: String?,
-            @SerializedName("work_mail")
-            var workMail: String?,
-            @SerializedName("work_team")
-            var workTeam: String?,
-            @SerializedName("worker_name")
-            var workerName: String?,
-            @SerializedName("email_sended")
-            var emailSended: Boolean?,
-            @SerializedName("on_vacation")
-            var onVacation: Boolean?,
-            @SerializedName("end_date")
-            var endDate : String?
+            @SerializedName("user_email")
+            var userEmail: String?,
+            @SerializedName("username")
+            var username: String?
         )
     }
 
