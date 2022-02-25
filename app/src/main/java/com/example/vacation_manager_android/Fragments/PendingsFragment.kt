@@ -106,7 +106,7 @@ class PendingsFragment : Fragment() {
         Log.d("Button", "editVacation")
         activity?.supportFragmentManager?.popBackStack()
         activity?.supportFragmentManager?.beginTransaction()
-            ?.replace(R.id.contiene_Fragments, SetDateFragment.newInstance("", ""))
+            ?.replace(R.id.contiene_Fragments, SetDateFragment.newInstance("",""))
             ?.addToBackStack(null)
             ?.commit()
     }

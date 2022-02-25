@@ -131,7 +131,9 @@ class FragmentLogin : Fragment() {
             if(verificar(txt_usuario.text.toString(),txt_contrasenia.text.toString())){
                 //loguea
                 checklogin()//guarda los valores de user y pass si esta seleccionado
-                startActivity(Intent(requireContext(), HostActivity::class.java))
+                var intentHost=Intent(requireContext(), HostActivity::class.java)
+                    intentHost.putExtra("user",userprueba)
+                startActivity(intentHost)
             }
         }
     }
