@@ -14,6 +14,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.replace
+import com.example.vacation_manager_android.Fragments.FragmentCalendar
 import com.example.vacation_manager_android.Fragments.FragmentHome
 import com.example.vacation_manager_android.Fragments.FragmentVacationReque
 import com.example.vacation_manager_android.Fragments.PendingsFragment
@@ -29,6 +31,7 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var fragmentHome: Fragment
     lateinit var fragmentvacation: Fragment
     lateinit var fragmentSendNotif: Fragment
+    lateinit var fragmentCalendar: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +42,7 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fragmentHome= FragmentHome.newInstance("","")
         fragmentvacation= FragmentVacationReque.newInstance("","")
         fragmentSendNotif= SendNotifFragment.newInstance("","")
+        fragmentCalendar = FragmentCalendar.newInstance("", "")
 
         toggle= ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
@@ -88,8 +92,13 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .commit()}
             R.id.m_item4 -> Toast.makeText(applicationContext,
                 "Clicked Item 4", Toast.LENGTH_SHORT).show()
-            R.id.m_item5 -> Toast.makeText(applicationContext,
-                "Clicked Item 5", Toast.LENGTH_SHORT).show()
+            R.id.m_item5 -> {
+                supportFragmentManager.popBackStack()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.contiene_Fragments, fragmentCalendar)
+                    .addToBackStack(null)
+                    .commit()
+            }
             R.id.m_item6 -> Toast.makeText(applicationContext,
                 "Clicked Item 6", Toast.LENGTH_SHORT).show()
             R.id.m_item7 -> Toast.makeText(applicationContext,

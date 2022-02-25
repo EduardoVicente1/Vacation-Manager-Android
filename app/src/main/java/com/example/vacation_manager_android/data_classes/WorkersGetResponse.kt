@@ -33,7 +33,9 @@ data class WorkersGetResponse(
             @SerializedName("email_sended")
             val emailSender: Boolean?,
             @SerializedName("on_vacation")
-            val onVacation: Boolean?
+            val onVacation: Boolean?,
+            @SerializedName("end_date")
+            val finish: String?
         )
     }
 
