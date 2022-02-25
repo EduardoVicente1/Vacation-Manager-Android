@@ -54,4 +54,14 @@ class PendingWorkersAdapter(var pendingWorkersList : List<WorkersGetResponse.Dat
         Log.d("pendingWorkerList.size",pendingWorkersList?.size.toString())
         return pendingWorkersList?.size!!
     }
+//    myadapter.reloadList(queryResult) esto se puede llamar desde el actvity o desde el fragment
+
+//    fun reloadList(filteredList : ArrayList<Contacts>){
+//        this.contactsList = filteredList
+//        notifyDataSetChanged()
+//    }
+
+//    fun removeItem(position: Int) {
+//        pendingWorkersList.remove(position)
+//    }
 }

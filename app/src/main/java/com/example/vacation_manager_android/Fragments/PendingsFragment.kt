@@ -71,15 +71,16 @@ class PendingsFragment : Fragment() {
 
             object : Callback<WorkersGetResponse> {
                 override fun onResponse(call: Call<WorkersGetResponse>, response: Response<WorkersGetResponse>) {
-                    Log.d("RESPONSE", response.body().toString())
+                    Log.d("GetRESPONSE", response.body().toString())
 
                     if(response.body() != null) {
                         allWorkersList = response.body()
 
                         filteredWorkersList = allWorkersList?.data?.filter {
-                            it?.attributes?.emailSended == true
+                            it?.attributes?.emailSended == false
                         }
                     }
+                    Log.d("GetRESPONSE", filteredWorkersList.toString())
 
                     pendingWorkersAdapter = PendingWorkersAdapter(filteredWorkersList){
                         workerData, action ->
@@ -103,11 +104,43 @@ class PendingsFragment : Fragment() {
 
     private fun editVacation(workerData: WorkersGetResponse.Data?) {
         Log.d("Button", "editVacation")
-
+        activity?.supportFragmentManager?.popBackStack()
+        activity?.supportFragmentManager?.beginTransaction()
+            ?.replace(R.id.contiene_Fragments, SetDateFragment.newInstance("", ""))
+            ?.addToBackStack(null)
+            ?.commit()
     }
 
     private fun rejectVacation(workerData: WorkersGetResponse.Data?) {
         Log.d("Button", "rejectVacation")
+        var newWorkerData = WorkerPutRequest(WorkerPutRequest.Data(null,null,null,null,null,null,null))
+        newWorkerData!!.data!!.emailSended = false
+        newWorkerData!!.data!!.endDate = workerData!!.attributes!!.endDate
+        newWorkerData!!.data!!.onVacation = false
+        newWorkerData!!.data!!.startDate = workerData!!.attributes!!.startDate
+        newWorkerData!!.data!!.workMail = workerData!!.attributes!!.workMail
+        newWorkerData!!.data!!.workTeam = workerData!!.attributes!!.workTeam
+        newWorkerData!!.data!!.workerName = workerData!!.attributes!!.workerName
+        Log.d("newWorkerData",newWorkerData.toString())
+
+        retroFitConnection = RetrofitClient.getInstance()
+        retroFitConnection.updateWorker(workerData.id.toString(), newWorkerData).enqueue(
+
+            object : Callback<Any> {
+                override fun onResponse(
+                    call: Call<Any>,
+                    response: Response<Any>
+                ) {
+                    if(response.body() != null) {
+                        Log.d("RESPONSE", response.body().toString())
+                    }
+                }
+
+                override fun onFailure(call: Call<Any>, t: Throwable) {
+                    Log.d("Error", t.toString())
+                }
+            }
+        )
     }
 
     private fun acceptVacation(workerData: WorkersGetResponse.Data?) {
@@ -138,14 +171,6 @@ class PendingsFragment : Fragment() {
                 override fun onFailure(call: Call<Any>, t: Throwable) {
                     Log.d("Error", t.toString())
                 }
-//                override fun onResponse(call: Call<WorkerPutRequest>, response: Response<WorkerPutRequest>) {
-//                    if(response.body() != null) {
-//                        Log.d("RESPONSE", response.body().toString())
-//                    }
-//                }
-//                override fun onFailure(call: Call<WorkerPutRequest>, t: Throwable) {
-//                    Log.d("Error", t.toString())
-//                }
             }
         )
     }
