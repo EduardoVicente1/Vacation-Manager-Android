@@ -43,15 +43,31 @@
             android:layout_marginTop="30dp"
             />
         <TextView
+            android:id="@+id/txt_titulo_inicio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inicio: "
+            android:textSize="16sp"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="30dp"/>
+        <TextView
             android:id="@+id/calendar_worker_fecha_ini"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Inicio: dd/mm"
             android:textSize="16sp"
             android:gravity="center_horizontal"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="75dp"
             android:layout_marginTop="60dp"
             />
+        <TextView
+            android:id="@+id/txt_titulo_fin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fin: "
+            android:textSize="16sp"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="220dp"/>
         <TextView
             android:id="@+id/calendar_worker_fecha_fin"
             android:layout_width="wrap_content"
@@ -59,7 +75,7 @@
             android:text="Fin: dd/mm"
             android:textSize="16sp"
             android:gravity="center_horizontal"
-            android:layout_marginLeft="150dp"
+            android:layout_marginLeft="250dp"
             android:layout_marginTop="60dp"
             />
     </androidx.cardview.widget.CardView>
