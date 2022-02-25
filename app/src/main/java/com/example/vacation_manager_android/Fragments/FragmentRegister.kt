@@ -70,14 +70,14 @@ class FragmentRegister : Fragment() {
 
             object : Callback<UserGetResponse> {
                 override fun onResponse(call: Call<UserGetResponse>, response: Response<UserGetResponse>) {
-                    Log.d("RESPONSE", response.body().toString())
+                   // Log.d("RESPONSE", response.body().toString())
 
                     if(response.body() != null) {
                         userbd = response.body()
                     }
                 }
                 override fun onFailure(call: Call<UserGetResponse>, t: Throwable) {
-                    Log.d("Error", t.toString())
+                  //  Log.d("Error", t.toString())
                 }
             }
         )
