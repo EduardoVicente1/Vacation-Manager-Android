@@ -46,6 +46,8 @@ class FragmentRegister : Fragment() {
     lateinit var retroFitConnection : ApiEndpoints
     private var userInfo: UserInfoRegister?= null
     private var userbd: UserGetResponse?= null
+    var passEncript=""
+
 
     private var encripDesencrip= Encriptado()
 
@@ -128,9 +130,11 @@ class FragmentRegister : Fragment() {
                         /*****Si no esta registrado se verifica que las pass sean iguales*****/
                         if (txt_pass1.text.toString() == txt_pass2.text.toString()) {
                             //se guarda en la base de datos
+
+                                passEncript=encripDesencrip.encriptar(txt_pass1.text.toString(),encripDesencrip.clave)
                             userInfo = UserInfoRegister(
                                 UserInfoRegister.Data(
-                                    password = txt_pass1.text.toString(),
+                                    password = passEncript,
                                     tokenApp = "AAAAAAAAAAA",
                                     userEmail = txt_email.text.toString(),
                                     username = txt_user.text.toString()
