@@ -8,4 +8,21 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#B0BEC5</color>
+    <color name="itau_fabrica">#ff9700</color>
+    <color name="itau_paseo">#FF7700</color>
+    <color name="atlas">#ff0000</color>
+    <color name="familiar">#0000ff</color>
+    <color name="gnb">#00ff00</color>
+    <color name="sudameris">#c20000</color>
+    <color name="roshka_studios">#0000c1</color>
+    <color name="administracion">#6038f5</color>
+    <color name="diseñadores">#00c18b</color>
+    <color name="operaciones">#303a90</color>
+    <color name="qa">#5b90c1</color>
+    <color name="soporte">#009ac1</color>
+    <color name="squadra">#b4c11f</color>
+    <color name="sysadmin">#c16a4d</color>
+    <color name="tatakua_team">#c1b100</color>
+    <color name="th">#c1819c</color>
+    <color name="victor_villalba">#8ec135</color>
 </resources>

@@ -8,12 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.vacation_manager_android.Adapters.OnVacationWorkersAdapter
+import com.example.vacation_manager_android.Adapters.CalendarWorkersAdapter
 import com.example.vacation_manager_android.HostActivity
 import com.example.vacation_manager_android.R
 import com.example.vacation_manager_android.Retrofit.ApiEndpoints
 import com.example.vacation_manager_android.Retrofit.RetrofitClient
-import com.example.vacation_manager_android.adapters.PendingWorkersAdapter
 import com.example.vacation_manager_android.data_classes.WorkersGetResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,6 +28,7 @@ class FragmentHome : Fragment() {
 
     lateinit var retroFitConnection : ApiEndpoints
     private var workersList: WorkersGetResponse?= null
+    lateinit var teamcolors: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +50,7 @@ class FragmentHome : Fragment() {
 
         var activityParent = activity as HostActivity
 
-        lateinit var onVacationWorkersAdapter: OnVacationWorkersAdapter
+        lateinit var calendarWorkersAdapter: CalendarWorkersAdapter
         lateinit var recyclerVariable : RecyclerView
 
         retroFitConnection = RetrofitClient.getInstance()
@@ -63,10 +63,10 @@ class FragmentHome : Fragment() {
                     if(response.body() != null) {
                         workersList = response.body()
                     }
-                    onVacationWorkersAdapter = OnVacationWorkersAdapter(workersList?.data)
-                    recyclerVariable = view.findViewById(R.id.recycler_on_vacation_container)
+                    calendarWorkersAdapter = CalendarWorkersAdapter(workersList?.data)
+                    recyclerVariable = view.findViewById(R.id.recycler_calendar_worker_container)
                     recyclerVariable.layoutManager = LinearLayoutManager(activityParent, LinearLayoutManager.VERTICAL, false)
-                    recyclerVariable.adapter = onVacationWorkersAdapter
+                    recyclerVariable.adapter = calendarWorkersAdapter
                 }
                 override fun onFailure(call: Call<WorkersGetResponse>, t: Throwable) {
                     Log.d("Error", t.toString())

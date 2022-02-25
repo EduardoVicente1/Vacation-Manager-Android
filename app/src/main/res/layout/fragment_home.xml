@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.FragmentHome"
     android:background="@drawable/background_splash_screen"
-    android:alpha="0.8">
+    >
 
     <TextView
         android:id="@+id/tx_cal"
@@ -20,13 +20,31 @@
         android:layout_marginTop="50dp"
         android:background="#FFFF32"
         />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_on_vacation_container"
-        android:layout_width="300dp"
+    <TextView
+        android:id="@+id/tx_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        app:layout_constraintLeft_toLeftOf="@id/tx_cal"
-        app:layout_constraintTop_toBottomOf="@+id/tx_cal" />
+        android:text="Lista de Vacaciones"
+        android:textSize="24sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/tx_cal"
+        app:layout_constraintStart_toStartOf="@+id/tx_cal"
+        app:layout_constraintTop_toBottomOf="@+id/tx_cal"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tx_title">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_calendar_worker_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
