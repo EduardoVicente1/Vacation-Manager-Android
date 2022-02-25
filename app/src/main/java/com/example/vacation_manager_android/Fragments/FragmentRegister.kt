@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import com.example.vacation_manager_android.Encriptado
 import com.example.vacation_manager_android.Errorcsm
 import com.example.vacation_manager_android.R
 import com.example.vacation_manager_android.Retrofit.ApiEndpoints
@@ -45,6 +46,8 @@ class FragmentRegister : Fragment() {
     lateinit var retroFitConnection : ApiEndpoints
     private var userInfo: UserInfoRegister?= null
     private var userbd: UserGetResponse?= null
+
+    private var encripDesencrip= Encriptado()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,6 +116,7 @@ class FragmentRegister : Fragment() {
             }
     }
 
+    /*************************funciones***************************/
 
     fun registrarse(){
         btn_registro.setOnClickListener(){
@@ -132,13 +136,16 @@ class FragmentRegister : Fragment() {
                                     username = txt_user.text.toString()
                                 )
                             )
-                            addUser(userInfo!!) {}
+                            addUser(userInfo!!) {}/***se añade a la base de datos***/
                             txterror.text = "Guardado con exito"
                             errorc.texterror(txterror, requireContext())
                             var frlogin=FragmentLogin.newInstance("","")
                             parentFragmentManager.beginTransaction()
                                 .replace(R.id.fragment_container,frlogin)
                                 .commit()
+                            /***********se vuelve al login***********/
+                            /***********************************************************************/
+                            /**A partir de aqui el manejo de errores**/
                         } else {
                             txterror.text = "No coinciden las contraseñas"
                             errorc.texterror(txterror, requireContext())
@@ -164,7 +171,7 @@ class FragmentRegister : Fragment() {
             }
         }
     }
-
+    /**verificamos que no exista user igual**/
     fun noExisteUser(user: String): Boolean{
         var noExiste=true
 
@@ -177,7 +184,7 @@ class FragmentRegister : Fragment() {
         }
         return noExiste
     }
-
+    /**verificamos que no se repita el email**/
     fun noExisteMail(mail:String):Boolean{
         var noExiste=true
         for (i in userbd?.data?.indices!!) {
@@ -190,7 +197,7 @@ class FragmentRegister : Fragment() {
         }
         return noExiste
     }
-
+    /*******agregamos el nuevo user*******/
     fun addUser(userData: UserInfoRegister, onResult: (UserInfoRegister?) -> Unit){
         retroFitConnection.addUser(userData).enqueue(
             object : Callback<UserInfoRegister> {
