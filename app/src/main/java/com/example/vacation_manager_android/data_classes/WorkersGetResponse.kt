@@ -31,9 +31,11 @@ data class WorkersGetResponse(
             @SerializedName("worker_name")
             var workerName: String?,
             @SerializedName("email_sended")
-            var emailSender: Boolean?,
+            var emailSended: Boolean?,
             @SerializedName("on_vacation")
-            var onVacation: Boolean?
+            var onVacation: Boolean?,
+            @SerializedName("end_date")
+            var endDate : String?
         )
     }
 
