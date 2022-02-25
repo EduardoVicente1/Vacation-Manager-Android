@@ -15,11 +15,14 @@ class CalendarWorkersAdapter(var onVacationWorkersList: List<WorkersGetResponse.
     inner class OnVacationWorkersHolder (var view: View) : RecyclerView.ViewHolder(view){
         var workerName : TextView= view.findViewById(R.id.calendar_worker_name)
         var workerTeam : TextView=view.findViewById(R.id.calendar_worker_team)
+        var workerDateIni : TextView= view.findViewById(R.id.calendar_worker_fecha_ini)
+        var workerDateFin : TextView= view.findViewById(R.id.calendar_worker_fecha_fin)
         lateinit var imgcolor: ImageView
         fun bind(onWorkerElement: WorkersGetResponse.Data?){
             workerName.text = onWorkerElement?.attributes?.workerName.toString()
-            var checkonVacation=onWorkerElement?.attributes?.onVacation
             workerTeam.text = onWorkerElement?.attributes?.workTeam.toString()
+            workerDateIni.text = onWorkerElement?.attributes?.startDate.toString()
+            workerDateFin.text = onWorkerElement?.attributes?.endDate.toString()
             imgcolor=view.findViewById(R.id.img_calendar_worker_color)
 
             when(workerTeam.text.toString()){
