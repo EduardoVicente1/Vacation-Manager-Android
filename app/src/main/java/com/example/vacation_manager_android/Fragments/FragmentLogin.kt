@@ -214,7 +214,6 @@ class FragmentLogin : Fragment() {
             parentFragmentManager
                 .beginTransaction()
                 .replace(R.id.fragment_container,fr_registrar)
-                .addToBackStack(null)
                 .commit()
         }
     }
