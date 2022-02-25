@@ -5,51 +5,51 @@ import com.google.gson.annotations.SerializedName
 
 data class WorkersGetResponse(
     @SerializedName("data")
-    val `data`: List<Data?>?,
+    var `data`: List<Data?>?,
     @SerializedName("meta")
-    val meta: Meta?
+    var meta: Meta?
 ) {
     data class Data(
         @SerializedName("attributes")
-        val attributes: Attributes?,
+        var attributes: Attributes?,
         @SerializedName("id")
-        val id: Int?
+        var id: Int?
     ) {
         data class Attributes(
             @SerializedName("createdAt")
-            val createdAt: String?,
+            var createdAt: String?,
             @SerializedName("publishedAt")
-            val publishedAt: String?,
+            var publishedAt: String?,
             @SerializedName("start_date")
-            val startDate: String?,
+            var startDate: String?,
             @SerializedName("updatedAt")
-            val updatedAt: String?,
+            var updatedAt: String?,
             @SerializedName("work_mail")
-            val workMail: String?,
+            var workMail: String?,
             @SerializedName("work_team")
-            val workTeam: String?,
+            var workTeam: String?,
             @SerializedName("worker_name")
-            val workerName: String?,
+            var workerName: String?,
             @SerializedName("email_sended")
-            val emailSender: Boolean?,
+            var emailSender: Boolean?,
             @SerializedName("on_vacation")
-            val onVacation: Boolean?
+            var onVacation: Boolean?
         )
     }
 
     data class Meta(
         @SerializedName("pagination")
-        val pagination: Pagination?
+        var pagination: Pagination?
     ) {
         data class Pagination(
             @SerializedName("page")
-            val page: Int?,
+            var page: Int?,
             @SerializedName("pageCount")
-            val pageCount: Int?,
+            var pageCount: Int?,
             @SerializedName("pageSize")
-            val pageSize: Int?,
+            var pageSize: Int?,
             @SerializedName("total")
-            val total: Int?
+            var total: Int?
         )
     }
 }

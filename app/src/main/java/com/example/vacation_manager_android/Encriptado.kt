@@ -7,7 +7,10 @@ import javax.crypto.spec.SecretKeySpec
 
 class Encriptado {
 
+    val clave = BuildConfig.TOKEN
+
     fun encriptar(datos: String, clave: String): String {
+
 
         var secretKey: SecretKeySpec = generateKey(clave)
         // Algoritmo de encriptación AES

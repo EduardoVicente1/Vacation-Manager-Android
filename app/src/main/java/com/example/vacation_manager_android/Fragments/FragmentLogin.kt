@@ -11,18 +11,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
-import com.example.vacation_manager_android.Adapters.OnVacationWorkersAdapter
-import com.example.vacation_manager_android.Errorcsm
-import com.example.vacation_manager_android.HostActivity
-import com.example.vacation_manager_android.ObjectSP
-import com.example.vacation_manager_android.R
+import com.example.vacation_manager_android.*
 import com.example.vacation_manager_android.Retrofit.ApiEndpoints
 import com.example.vacation_manager_android.Retrofit.RetrofitClient
 import com.example.vacation_manager_android.data_classes.UserGetResponse
-import com.example.vacation_manager_android.data_classes.WorkersGetResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -52,6 +46,9 @@ class FragmentLogin : Fragment() {
     var userprueba="asd"
     var passprueba="123"
     private lateinit var sharedP: SharedPreferences
+
+    var passDesEncript=""
+    private var encripDesencrip= Encriptado()
 
     lateinit var txtRegistro: TextView
 
@@ -226,6 +223,8 @@ class FragmentLogin : Fragment() {
                     existeUser=true
                     userprueba=usuario
                     passprueba=userbd!!.data?.get(i)?.attributes?.password.toString()
+                    passDesEncript=encripDesencrip.desencriptar(passprueba,encripDesencrip.clave)
+                    passprueba=passDesEncript
                 }
             }
         }
