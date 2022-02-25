@@ -30,8 +30,8 @@ class PendingWorkersAdapter(var pendingWorkersList : List<WorkersGetResponse.Dat
         fun bind(elementList: WorkersGetResponse.Data?){
             pendingWorkerName.text = elementList?.attributes?.workerName.toString()
             pendingWorkerTeam.text = elementList?.attributes?.workTeam.toString()
-            pendingWorkerStartDate.text = elementList?.attributes?.startDate.toString()
-            pendingWorkerFinishDate.text = elementList?.attributes?.endDate.toString()
+            pendingWorkerStartDate.text = "Inicia: \n"+elementList?.attributes?.startDate.toString()
+            pendingWorkerFinishDate.text = "Finaliza: \n"+elementList?.attributes?.endDate.toString()
 
             pendingWorkerAccept.setOnClickListener{
                 callback(elementList, "accept")
