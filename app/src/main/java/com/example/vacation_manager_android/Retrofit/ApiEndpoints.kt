@@ -16,7 +16,11 @@ interface ApiEndpoints {
 
     @POST("/api/users-backups/")
     fun addUser(@Body userData: UserInfoRegister): Call<UserInfoRegister>
+
     @PUT("/api/workers-inf/{id}")
     fun updateWorker(@Path("id") id: String, @Body newWorkerData : WorkerPutRequest): Call<Any>
+
+    @POST("/api/workers-inf/")
+    fun newWorker(@Body workerData: WorkerPutRequest): Call<WorkerPutRequest>
 
 }

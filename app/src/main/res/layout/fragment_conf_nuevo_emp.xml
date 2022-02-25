@@ -1,167 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="Fragments.FragmentConfNuevoEmp"
-    android:background="@drawable/background_splash_screen">
+    android:background="@drawable/background_splash_screen"
+    tools:context="Fragments.FragmentConfNuevoEmp">
 
-    <TextView
-        android:id="@+id/tx_titulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Formulario de Empleados"
-        android:fontFamily="@font/mplusrounded1cextrabold"
-        android:textSize="25sp"
-        android:layout_marginTop="90dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cons_form"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view_set_date"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_height="500dp"
+        android:background="@color/white"
+        app:cardCornerRadius="40dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tx_titulo"
-        android:backgroundTint="@null">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tx_crudW_nombre"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_set_date"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:hint="Nombres"
-            android:fontFamily="@font/mplusrounded1cregular"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tx_crudW_cedula"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
-            android:fontFamily="@font/mplusrounded1cregular"
-            android:gravity="center"
-            android:hint="Cédula"
-            android:inputType="number"
-            app:layout_constraintEnd_toStartOf="@+id/tx_crudW_correo"
-            app:layout_constraintStart_toStartOf="@+id/tx_crudW_nombre"
-            app:layout_constraintTop_toBottomOf="@+id/tx_crudW_nombre" />
+            <TextView
+                android:id="@+id/tx_titulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/mplusrounded1cextrabold"
+                android:text="Formulario de Empleados"
+                android:textSize="27dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tx_crudW_correo"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:hint="Email"
-            android:fontFamily="@font/mplusrounded1cregular"
-            app:layout_constraintEnd_toEndOf="@id/tx_crudW_nombre"
-            app:layout_constraintTop_toBottomOf="@id/tx_crudW_nombre" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cons_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@null"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tx_titulo">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tx_crudW_equipo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:hint="Equipo"
-            android:fontFamily="@font/mplusrounded1cregular"
-            app:layout_constraintStart_toStartOf="@+id/tx_crudW_cedula"
-            app:layout_constraintTop_toBottomOf="@+id/tx_crudW_cedula" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tx_new_nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:fontFamily="@font/mplusrounded1cregular"
+                    android:hint="Nombres"
+                    android:inputType="textPersonName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/tx_crudW_fecha"
-            android:layout_width="120dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="20dp"
-            android:textSize="18dp"
-            android:gravity="bottom"
-            android:hint="dd/mm/aaaa"
-            android:fontFamily="@font/mplusrounded1cregular"
-            android:clickable="false"
-            android:focusable="false"
-            app:layout_constraintEnd_toStartOf="@+id/tx_crudW_antiguedad"
-            app:layout_constraintTop_toBottomOf="@+id/tx_crudW_equipo" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tx_new_correo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:inputType="textEmailAddress"
+                    android:fontFamily="@font/mplusrounded1cregular"
+                    android:hint="Email"
+                    app:layout_constraintEnd_toEndOf="@id/tx_new_nombre"
+                    app:layout_constraintStart_toStartOf="@+id/tx_new_nombre"
+                    app:layout_constraintTop_toBottomOf="@id/tx_new_nombre" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tx_crudW_antiguedad"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="100dp"
-            android:gravity="center"
-            android:hint="Años"
-            android:fontFamily="@font/mplusrounded1cregular"
-            android:inputType="number"
-            app:layout_constraintEnd_toEndOf="@+id/tx_crudW_equipo"
-            app:layout_constraintTop_toBottomOf="@+id/tx_crudW_equipo" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tx_new_equipo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:inputType="textPersonName"
+                    android:fontFamily="@font/mplusrounded1cregular"
+                    android:hint="Equipo"
+                    app:layout_constraintEnd_toEndOf="@+id/tx_new_correo"
+                    app:layout_constraintTop_toBottomOf="@+id/tx_new_correo" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/txt_titlefrcne"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/mplusrounded1cextrabold"
+                    android:text="Fecha de ingreso"
+                    android:textSize="18dp"
+                    app:layout_constraintTop_toBottomOf="@+id/tx_new_equipo" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cons_form">
+                <EditText
+                    android:id="@+id/tx_new_dia"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/mplusrounded1cregular"
+                    android:gravity="center"
+                    android:hint="Dia"
+                    android:inputType="number"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_titlefrcne" />
 
-        <Button
-            android:id="@+id/btn_crudW_new"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="28dp"
-            android:text="Nuevo"
-            android:fontFamily="@font/mplusrounded1cextrabold"
-            android:backgroundTint="#2245c1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <Button
-            android:id="@+id/btn_crudW_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="28dp"
-            android:text="Guardar"
-            android:fontFamily="@font/mplusrounded1cextrabold"
-            android:backgroundTint="#2245c1"
-            app:layout_constraintStart_toEndOf="@id/btn_crudW_new"
-            app:layout_constraintTop_toTopOf="parent" />
-        <Button
-            android:id="@+id/btn_crudW_modify"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="28dp"
-            android:text="Modificar"
-            android:fontFamily="@font/mplusrounded1cextrabold"
-            android:backgroundTint="#2245c1"
-            app:layout_constraintStart_toEndOf="@id/btn_crudW_save"
-            app:layout_constraintTop_toTopOf="parent" />
+                <EditText
+                    android:id="@+id/tx_new_meses"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/mplusrounded1cregular"
+                    android:gravity="center"
+                    android:hint="Mes"
+                    android:inputType="number"
+                    app:layout_constraintEnd_toStartOf="@+id/tx_new_anio"
+                    app:layout_constraintStart_toEndOf="@+id/tx_new_dia"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_titlefrcne"
+                    tools:layout_editor_absoluteX="100dp" />
 
-        <Button
-            android:id="@+id/btn_crudW_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:text="Eliminar"
-            android:fontFamily="@font/mplusrounded1cextrabold"
-            android:backgroundTint="#2245c1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_crudW_new" />
+                <EditText
+                    android:id="@+id/tx_new_anio"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/mplusrounded1cregular"
+                    android:gravity="center"
+                    android:hint="Año"
+                    android:inputType="number"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_titlefrcne" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cons_form">
+
+
+                <Button
+                    android:id="@+id/btn_new_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:backgroundTint="#2245c1"
+                    android:fontFamily="@font/mplusrounded1cextrabold"
+                    android:text="Guardar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

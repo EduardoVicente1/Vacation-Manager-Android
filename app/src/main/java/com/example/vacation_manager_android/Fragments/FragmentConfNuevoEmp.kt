@@ -5,7 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import androidx.navigation.fragment.findNavController
 import com.example.vacation_manager_android.R
+import com.example.vacation_manager_android.Retrofit.ApiEndpoints
+import com.example.vacation_manager_android.data_classes.WorkersGetResponse
+import com.google.android.material.textfield.TextInputEditText
+
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -21,6 +28,22 @@ class FragmentConfNuevoEmp : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+
+    lateinit var txt_worker: TextInputEditText
+    lateinit var txt_workerEquipo: TextInputEditText
+    lateinit var txt_workerMail: TextInputEditText
+    lateinit var txt_dia: EditText
+    lateinit var txt_mes: EditText
+    lateinit var txt_anio: EditText
+
+    var fecha=""
+    lateinit var btnSave: Button
+
+    lateinit var retroFitConnection: ApiEndpoints
+    private var allworker: WorkersGetResponse?=null
+    private var filteredWorkersList : List<WorkersGetResponse.Data?>? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -33,6 +56,15 @@ class FragmentConfNuevoEmp : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_conf_nuevo_emp, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        txt_worker=view.findViewById(R.id.tx_new_nombre)
+        txt_workerEquipo=view.findViewById(R.id.tx_new_equipo)
+        txt_workerMail=view.findViewById(R.id.tx_new_correo)
+        btnSave=view.findViewById(R.id.btn_new_save)
+
     }
 
     companion object {
