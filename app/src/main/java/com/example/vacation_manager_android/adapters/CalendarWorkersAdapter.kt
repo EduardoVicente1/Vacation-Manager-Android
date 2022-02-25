@@ -47,7 +47,6 @@ class CalendarWorkersAdapter(var onVacationWorkersList: List<WorkersGetResponse.
                 "Manchester United 2" -> imgcolor.setBackgroundColor(getColor(view.context,R.color.soporte))
             }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarWorkersAdapter.OnVacationWorkersHolder {
