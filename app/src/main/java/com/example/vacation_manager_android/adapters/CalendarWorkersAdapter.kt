@@ -27,7 +27,7 @@ class CalendarWorkersAdapter(var onVacationWorkersList: List<WorkersGetResponse.
                 "Itau Paseo" -> imgcolor.setBackgroundColor(getColor(view.context,R.color.itau_paseo))
                 "Familiar" -> imgcolor.setBackgroundColor(getColor(view.context,R.color.familiar))
                 "Atlas" -> imgcolor.setBackgroundColor(getColor(view.context,R.color.atlas))
-                "GNB" -> imgcolor.setBackgroundColor(getColor(view.context,R.color.gnb))
+                "GNB FUSION" -> imgcolor.setBackgroundColor(getColor(view.context,R.color.gnb))
                 "Sudameris" -> imgcolor.setBackgroundColor(getColor(view.context,R.color.sudameris))
                 "RoshkaStudios" -> imgcolor.setBackgroundColor(getColor(view.context,R.color.roshka_studios))
                 "Administracion" -> imgcolor.setBackgroundColor(getColor(view.context,R.color.administracion))

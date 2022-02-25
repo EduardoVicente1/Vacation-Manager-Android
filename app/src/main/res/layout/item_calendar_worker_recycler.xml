@@ -20,7 +20,7 @@
             android:id="@+id/img_calendar_worker_color"
             android:layout_width="20dp"
             android:layout_height="match_parent"
-            android:background="#FF3D00"
+            android:background="#00FFA6"
             />
         <TextView
             android:id="@+id/calendar_worker_team"
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Marcelo Arguello"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:gravity="center_horizontal"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
