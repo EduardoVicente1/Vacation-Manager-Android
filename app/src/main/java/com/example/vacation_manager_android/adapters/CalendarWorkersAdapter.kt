@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.getColor
+import androidx.recyclerview.widget.AdapterListUpdateCallback
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vacation_manager_android.R
 import com.example.vacation_manager_android.data_classes.WorkersGetResponse
 
-class CalendarWorkersAdapter(var onVacationWorkersList: List<WorkersGetResponse.Data?>?) : RecyclerView.Adapter<CalendarWorkersAdapter.OnVacationWorkersHolder>(){
+class CalendarWorkersAdapter(var onVacationWorkersList: List<WorkersGetResponse.Data?>): RecyclerView.Adapter<CalendarWorkersAdapter.OnVacationWorkersHolder>(){
     inner class OnVacationWorkersHolder (var view: View) : RecyclerView.ViewHolder(view){
         var workerName : TextView= view.findViewById(R.id.calendar_worker_name)
         var workerTeam : TextView=view.findViewById(R.id.calendar_worker_team)

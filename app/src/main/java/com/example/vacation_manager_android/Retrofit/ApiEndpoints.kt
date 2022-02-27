@@ -7,7 +7,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiEndpoints {
-    @GET("/api/workers-inf/")
+    @GET("/api/workers-inf/?pagination[page]=1&pagination[pageSize]=100&sort[0]=email_sended%3Aasc")
     fun getAllWorkers(): Call<WorkersGetResponse>
 
 }
