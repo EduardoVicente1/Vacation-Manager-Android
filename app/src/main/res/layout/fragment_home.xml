@@ -5,48 +5,33 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.FragmentHome"
-    android:background="@drawable/background_2"
-    >
+    android:background="@drawable/background_2">
 
-    <TextView
-        android:id="@+id/tx_cal"
-        android:layout_width="350dp"
-        android:layout_height="350dp"
-        android:text="Aqui va el Calendar"
-        android:textSize="90px"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="20dp"
-        android:background="#FFFF32"
-        />
     <TextView
         android:id="@+id/tx_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Lista de Empleados en Vacaciones"
-        android:textSize="24sp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="19dp"
+        android:text="Lista de habilitados"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/tx_cal"
-        app:layout_constraintStart_toStartOf="@+id/tx_cal"
-        app:layout_constraintTop_toBottomOf="@+id/tx_cal"
-        />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="350dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tx_title">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_calendar_worker_container"
+            android:id="@+id/recycler_habilitados"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@id/tx_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -56,7 +56,7 @@ class FragmentHome : Fragment() {
 
         activityParent = activity as HostActivity
 
-        retroFitConnection = RetrofitClient.getInstance()
+        /*retroFitConnection = RetrofitClient.getInstance()
         retroFitConnection.getAllWorkers().enqueue(
 
             object : Callback<WorkersGetResponse> {
@@ -81,7 +81,7 @@ class FragmentHome : Fragment() {
                     Log.d("Error", t.toString())
                 }
             }
-        )
+        )*/
     }
 
     companion object {
