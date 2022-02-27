@@ -1,5 +1,6 @@
 package com.example.vacation_manager_android.Fragments
 
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -26,9 +27,14 @@ class FragmentHome : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    lateinit var activityParent : Activity
+
+    lateinit var calendarWorkersAdapter: CalendarWorkersAdapter
+    lateinit var recyclerVariable : RecyclerView
+
     lateinit var retroFitConnection : ApiEndpoints
     private var workersList: WorkersGetResponse?= null
-    lateinit var teamcolors: String
+    private var filteredWorkersList : List<WorkersGetResponse.Data?>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,10 +54,7 @@ class FragmentHome : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var activityParent = activity as HostActivity
-
-        lateinit var calendarWorkersAdapter: CalendarWorkersAdapter
-        lateinit var recyclerVariable : RecyclerView
+        activityParent = activity as HostActivity
 
         retroFitConnection = RetrofitClient.getInstance()
         retroFitConnection.getAllWorkers().enqueue(
@@ -62,8 +65,14 @@ class FragmentHome : Fragment() {
 
                     if(response.body() != null) {
                         workersList = response.body()
+
+                        filteredWorkersList = workersList?.data?.filter {
+                            it?.attributes?.onVacation == true
+                        }
+                        Log.d("FILTER", filteredWorkersList.toString())
                     }
-                    calendarWorkersAdapter = CalendarWorkersAdapter(workersList?.data)
+
+                    calendarWorkersAdapter = CalendarWorkersAdapter(filteredWorkersList)
                     recyclerVariable = view.findViewById(R.id.recycler_calendar_worker_container)
                     recyclerVariable.layoutManager = LinearLayoutManager(activityParent, LinearLayoutManager.VERTICAL, false)
                     recyclerVariable.adapter = calendarWorkersAdapter
