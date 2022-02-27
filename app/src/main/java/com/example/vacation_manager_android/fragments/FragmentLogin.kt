@@ -1,4 +1,4 @@
-package com.example.vacation_manager_android.Fragments
+package com.example.vacation_manager_android.fragments
 
 import android.content.Context
 import android.content.Intent
@@ -14,8 +14,8 @@ import android.widget.*
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.example.vacation_manager_android.*
-import com.example.vacation_manager_android.Retrofit.ApiEndpoints
-import com.example.vacation_manager_android.Retrofit.RetrofitClient
+import com.example.vacation_manager_android.retrofit.ApiEndpoints
+import com.example.vacation_manager_android.retrofit.RetrofitClient
 import com.example.vacation_manager_android.data_classes.UserGetResponse
 import retrofit2.Call
 import retrofit2.Callback

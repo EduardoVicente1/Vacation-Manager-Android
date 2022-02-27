@@ -1,4 +1,4 @@
-package com.example.vacation_manager_android.Retrofit
+package com.example.vacation_manager_android.retrofit
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

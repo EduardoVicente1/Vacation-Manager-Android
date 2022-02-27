@@ -1,4 +1,4 @@
-package com.example.vacation_manager_android.Retrofit
+package com.example.vacation_manager_android.retrofit
 
 import com.example.vacation_manager_android.data_classes.UserGetResponse
 import com.example.vacation_manager_android.data_classes.UserInfoRegister

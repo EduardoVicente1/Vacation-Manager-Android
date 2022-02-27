@@ -1,4 +1,4 @@
-package com.example.vacation_manager_android.Fragments
+package com.example.vacation_manager_android.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -12,8 +12,8 @@ import com.example.vacation_manager_android.Adapters.CalendarWorkersAdapter
 import com.example.vacation_manager_android.ArrayWorkerClass
 import com.example.vacation_manager_android.HostActivity
 import com.example.vacation_manager_android.R
-import com.example.vacation_manager_android.Retrofit.ApiEndpoints
-import com.example.vacation_manager_android.Retrofit.RetrofitClient
+import com.example.vacation_manager_android.retrofit.ApiEndpoints
+import com.example.vacation_manager_android.retrofit.RetrofitClient
 import com.example.vacation_manager_android.data_classes.WorkersGetResponse
 import com.shuhart.materialcalendarview.CalendarDay
 import com.shuhart.materialcalendarview.MaterialCalendarView
@@ -21,9 +21,6 @@ import com.shuhart.materialcalendarview.MaterialCalendarView.Companion.SELECTION
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.*
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -81,7 +78,7 @@ class FragmentCalendar : Fragment() {
                 if (response.body() != null) {
                     workersList = response.body()
                 }
-                onVacationWorkersAdapter = CalendarWorkersAdapter(workersList?.data)
+                onVacationWorkersAdapter = CalendarWorkersAdapter(workersList?.data!!)
                 recyclerVariable = view.findViewById(R.id.recycler_on_vacation_container)
                 recyclerVariable.layoutManager =
                     LinearLayoutManager(activityParent, LinearLayoutManager.VERTICAL, false)

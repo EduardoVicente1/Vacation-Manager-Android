@@ -4,7 +4,7 @@ package com.example.vacation_manager_android
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
-import com.example.vacation_manager_android.Fragments.FragmentLogin
+import com.example.vacation_manager_android.fragments.FragmentLogin
 
 class LoginActivity : AppCompatActivity() {
 

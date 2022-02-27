@@ -1,4 +1,4 @@
-package com.example.vacation_manager_android.Fragments
+package com.example.vacation_manager_android.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,9 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import androidx.navigation.fragment.findNavController
 import com.example.vacation_manager_android.R
-import com.example.vacation_manager_android.Retrofit.ApiEndpoints
+import com.example.vacation_manager_android.retrofit.ApiEndpoints
 import com.example.vacation_manager_android.data_classes.WorkersGetResponse
 import com.google.android.material.textfield.TextInputEditText
 

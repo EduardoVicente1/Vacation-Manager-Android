@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_splash_screen"
-    tools:context="Fragments.FragmentConfNuevoEmp">
+    tools:context="fragments.FragmentConfNuevoEmp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view_set_date"

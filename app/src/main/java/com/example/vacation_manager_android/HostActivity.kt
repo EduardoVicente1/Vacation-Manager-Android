@@ -16,12 +16,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.replace
-import com.example.vacation_manager_android.Fragments.FragmentCalendar
-import com.example.vacation_manager_android.Fragments.FragmentConfNuevoEmp
-import com.example.vacation_manager_android.Fragments.FragmentHome
-import com.example.vacation_manager_android.Fragments.FragmentVacationReque
-import com.example.vacation_manager_android.Fragments.PendingsFragment
+import com.example.vacation_manager_android.fragments.FragmentCalendar
+import com.example.vacation_manager_android.fragments.FragmentConfNuevoEmp
+import com.example.vacation_manager_android.fragments.FragmentHome
+import com.example.vacation_manager_android.fragments.FragmentVacationReque
+import com.example.vacation_manager_android.fragments.PendingsFragment
 import com.google.android.material.navigation.NavigationView
 import com.paulocabelloacha.sendnotif.SendNotifFragment
 
@@ -56,7 +55,7 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         fragmentHome= FragmentHome.newInstance("","")
         fragmentvacation= FragmentVacationReque.newInstance("","")
-        fragmentSendNotif= SendNotifFragment.newInstance("","")
+        fragmentSendNotif= SendNotifFragment.newInstance("")
         fragmentCalendar = FragmentCalendar.newInstance("", "")
         pendingsFragment = PendingsFragment.newInstance("","")
         fragmentConfNuev = FragmentConfNuevoEmp.newInstance("","")

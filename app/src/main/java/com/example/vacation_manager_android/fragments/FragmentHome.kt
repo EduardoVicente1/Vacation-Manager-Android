@@ -1,4 +1,4 @@
-package com.example.vacation_manager_android.Fragments
+package com.example.vacation_manager_android.fragments
 
 import android.app.Activity
 import android.os.Bundle
@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vacation_manager_android.HostActivity
 import com.example.vacation_manager_android.R
-import com.example.vacation_manager_android.Retrofit.ApiEndpoints
-import com.example.vacation_manager_android.Retrofit.RetrofitClient
+import com.example.vacation_manager_android.retrofit.ApiEndpoints
+import com.example.vacation_manager_android.retrofit.RetrofitClient
 import com.example.vacation_manager_android.adapters.WorkersHabilitadosAdapter
 import com.example.vacation_manager_android.data_classes.WorkersGetResponse
 import com.paulocabelloacha.sendnotif.SendNotifFragment
@@ -65,6 +65,7 @@ class FragmentHome : Fragment() {
 
         activityParent = activity as HostActivity
         recyclerHabilitados = view.findViewById(R.id.recycler_container_habilitados)
+
         retroFitConnection = RetrofitClient.getInstance()
         retroFitConnection.getAllWorkers().enqueue(
 
@@ -100,11 +101,18 @@ class FragmentHome : Fragment() {
 
                         Log.d("response", filteredWorkersList.toString())
                         workersHabilitadosAdapter = WorkersHabilitadosAdapter(workersList?.data){
-                            workersData -> fragpaulo=SendNotifFragment.newInstance(workersData,"")
+                            workerId: String -> fragpaulo=SendNotifFragment.newInstance(workerId)
+                            (activityParent as HostActivity).supportFragmentManager
+                                .beginTransaction()
+                                .replace(R.id.fragment_container, fragpaulo)
+                                .addToBackStack(null)
+                                .commit()
                         }
-                        recyclerHabilitados.layoutManager =
-                            LinearLayoutManager(activityParent, LinearLayoutManager.VERTICAL, false)
-                        recyclerHabilitados.adapter = workersHabilitadosAdapter
+                        recyclerHabilitados.apply {
+                            layoutManager =
+                                LinearLayoutManager(activityParent, LinearLayoutManager.VERTICAL, false)
+                            adapter = workersHabilitadosAdapter
+                        }
                     }
                 }
 
@@ -112,7 +120,7 @@ class FragmentHome : Fragment() {
                     Log.d("Error", t.toString())
                 }
             }
-        )*/
+        )
     }
 
     companion object {

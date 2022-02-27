@@ -1,7 +1,6 @@
-package com.example.vacation_manager_android.Fragments
+package com.example.vacation_manager_android.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +11,8 @@ import android.widget.TextView
 import com.example.vacation_manager_android.Encriptado
 import com.example.vacation_manager_android.Errorcsm
 import com.example.vacation_manager_android.R
-import com.example.vacation_manager_android.Retrofit.ApiEndpoints
-import com.example.vacation_manager_android.Retrofit.RetrofitClient
+import com.example.vacation_manager_android.retrofit.ApiEndpoints
+import com.example.vacation_manager_android.retrofit.RetrofitClient
 import com.example.vacation_manager_android.data_classes.UserGetResponse
 import com.example.vacation_manager_android.data_classes.UserInfoRegister
 import retrofit2.Call

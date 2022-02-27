@@ -1,4 +1,4 @@
-package com.example.vacation_manager_android.Fragments
+package com.example.vacation_manager_android.fragments
 
 import android.app.Activity
 import android.os.Bundle
@@ -7,13 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vacation_manager_android.HostActivity
 import com.example.vacation_manager_android.R
-import com.example.vacation_manager_android.Retrofit.ApiEndpoints
-import com.example.vacation_manager_android.Retrofit.RetrofitClient
+import com.example.vacation_manager_android.retrofit.ApiEndpoints
+import com.example.vacation_manager_android.retrofit.RetrofitClient
 import com.example.vacation_manager_android.adapters.PendingWorkersAdapter
 import com.example.vacation_manager_android.data_classes.WorkerPutRequest
 import com.example.vacation_manager_android.data_classes.WorkersGetResponse
@@ -83,7 +82,7 @@ class PendingsFragment : Fragment() {
                     Log.d("GetRESPONSE", filteredWorkersList.toString())
 
                     pendingWorkersAdapter = PendingWorkersAdapter(filteredWorkersList){
-                        workerData, action ->
+                        workerData: WorkersGetResponse.Data?, action ->
                         when(action){
                             "accept" -> acceptVacation(workerData)
                             "reject" -> rejectVacation(workerData)
