@@ -15,7 +15,6 @@ import com.example.vacation_manager_android.retrofit.ApiEndpoints
 import com.example.vacation_manager_android.retrofit.RetrofitClient
 import com.example.vacation_manager_android.adapters.WorkersHabilitadosAdapter
 import com.example.vacation_manager_android.data_classes.WorkersGetResponse
-import com.paulocabelloacha.sendnotif.SendNotifFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -101,10 +100,10 @@ class FragmentHome : Fragment() {
 
                         Log.d("response", filteredWorkersList.toString())
                         workersHabilitadosAdapter = WorkersHabilitadosAdapter(workersList?.data){
-                            workerId: String -> fragpaulo=SendNotifFragment.newInstance(workerId)
+                            workerId: String -> fragpaulo= SendNotifFragment.newInstance(workerId)
                             (activityParent as HostActivity).supportFragmentManager
                                 .beginTransaction()
-                                .replace(R.id.fragment_container, fragpaulo)
+                                .replace(R.id.contiene_Fragments, fragpaulo)
                                 .addToBackStack(null)
                                 .commit()
                         }

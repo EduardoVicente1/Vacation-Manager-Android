@@ -22,7 +22,7 @@ import com.example.vacation_manager_android.fragments.FragmentHome
 import com.example.vacation_manager_android.fragments.FragmentVacationReque
 import com.example.vacation_manager_android.fragments.PendingsFragment
 import com.google.android.material.navigation.NavigationView
-import com.paulocabelloacha.sendnotif.SendNotifFragment
+import com.example.vacation_manager_android.fragments.SendNotifFragment
 
 class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 

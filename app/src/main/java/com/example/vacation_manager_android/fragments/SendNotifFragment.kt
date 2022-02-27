@@ -1,4 +1,4 @@
-package com.paulocabelloacha.sendnotif
+package com.example.vacation_manager_android.fragments
 
 import android.content.Intent
 import android.net.Uri
@@ -15,7 +15,6 @@ private const val ARG_PARAM1 = "param1"
 
 class SendNotifFragment : Fragment() {
     private var param1: String? = null
-    private var param2: String? = null
 
     private lateinit var etBody: EditText
     private lateinit var btnEmail: Button
