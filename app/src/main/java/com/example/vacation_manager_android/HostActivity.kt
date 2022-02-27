@@ -6,14 +6,19 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.MotionEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.replace
+import com.example.vacation_manager_android.Fragments.FragmentCalendar
+import com.example.vacation_manager_android.Fragments.FragmentConfNuevoEmp
 import com.example.vacation_manager_android.Fragments.FragmentHome
 import com.example.vacation_manager_android.Fragments.FragmentVacationReque
 import com.example.vacation_manager_android.Fragments.PendingsFragment
@@ -28,18 +33,33 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var fragmentHome: Fragment
     lateinit var fragmentvacation: Fragment
     lateinit var fragmentSendNotif: Fragment
+    lateinit var fragmentCalendar: Fragment
     lateinit var pendingsFragment: Fragment
+    lateinit var fragmentConfNuev: Fragment
+
+    lateinit var txt_usuarioActivo: TextView
+    lateinit var header: View
+    var usuario=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_host)
 
+        usuario=intent.getStringExtra("user").toString()
+
         drawerLayout=findViewById(R.id.drawerLayout)
+
         navView=findViewById(R.id.nav_main)
+        header=navView.getHeaderView(0)
+        txt_usuarioActivo=header.findViewById(R.id.txt_h_perfil)
+        txt_usuarioActivo.setText(usuario)
+
         fragmentHome= FragmentHome.newInstance("","")
         fragmentvacation= FragmentVacationReque.newInstance("","")
         fragmentSendNotif= SendNotifFragment.newInstance("","")
+        fragmentCalendar = FragmentCalendar.newInstance("", "")
         pendingsFragment = PendingsFragment.newInstance("","")
+        fragmentConfNuev = FragmentConfNuevoEmp.newInstance("","")
 
         toggle= ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
@@ -47,9 +67,11 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+
         navView.setNavigationItemSelectedListener(this)
 
         cargarFragment(R.id.m_item1)
+
     }
     //Sobreescribir la Función para seleccionar item del menu
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -93,12 +115,21 @@ class HostActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .replace(R.id.contiene_Fragments, pendingsFragment)
                     .addToBackStack(null)
                     .commit()}
-            R.id.m_item5 -> Toast.makeText(applicationContext,
-                "Clicked Item 5", Toast.LENGTH_SHORT).show()
+            R.id.m_item5 -> {
+                supportFragmentManager.popBackStack()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.contiene_Fragments, fragmentCalendar)
+                    .addToBackStack(null)
+                    .commit()
+            }
             R.id.m_item6 -> Toast.makeText(applicationContext,
                 "Clicked Item 6", Toast.LENGTH_SHORT).show()
-            R.id.m_item7 -> Toast.makeText(applicationContext,
-                "Clicked Item 7", Toast.LENGTH_SHORT).show()
+            R.id.m_item7 -> {
+                supportFragmentManager.popBackStack()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.contiene_Fragments,fragmentConfNuev)
+                    .addToBackStack(null)
+                    .commit() }
             R.id.m_item8 -> finish()
         }
     }
