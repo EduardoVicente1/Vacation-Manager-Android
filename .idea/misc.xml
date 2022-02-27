@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Eduardo/AndroidStudioProjects/Vacation-Manager-Android/app/src/main/res/layout/card_view.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Eduardo/AndroidStudioProjects/Vacation-Manager-Android/app/src/main/res/layout/card_view_habilitados.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Eduardo/AndroidStudioProjects/Vacation-Manager-Android/app/src/main/res/layout/fragment_home.xml" value="0.2" />
+        <entry key="..\:/Users/Eduardo/AndroidStudioProjects/Vacation-Manager-Android/app/src/main/res/layout/fragment_pendings.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Eduardo/AndroidStudioProjects/Vacation-Manager-Android/app/src/main/res/layout/item_calendar_worker_recycler.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Eduardo/AndroidStudioProjects/Vacation-Manager-Android/app/src/main/res/layout/item_pending_recycler.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Eduardo/AndroidStudioProjects/VacationManagerAndroid/app/src/main/res/drawable/splashscreen.xml" value="0.1395" />
         <entry key="..\:/Users/Eduardo/AndroidStudioProjects/VacationManagerAndroid/app/src/main/res/layout/activity_main.xml" value="0.18" />
         <entry key="..\:/Users/Eduardo/AndroidStudioProjects/VacationManagerAndroid/app/src/main/res/layout/activity_main3.xml" value="0.20416666666666666" />
