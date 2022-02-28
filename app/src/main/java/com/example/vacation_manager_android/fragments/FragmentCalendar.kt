@@ -32,7 +32,7 @@ class FragmentCalendar : Fragment() {
     private var workersList: WorkersGetResponse?= null
     lateinit var calendario: MaterialCalendarView
     lateinit var listaVacaciones: MutableList<ArrayWorkerClass>
-
+    private var filteredWorkersList : List<WorkersGetResponse.Data?>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,32 +77,28 @@ class FragmentCalendar : Fragment() {
 
                 if (response.body() != null) {
                     workersList = response.body()
+                    filteredWorkersList = workersList?.data?.filter {
+                        it?.attributes?.onVacation == true && it.attributes?.endDate != null
+                    }
+                    Log.d("FILTER", filteredWorkersList.toString())
                 }
-                onVacationWorkersAdapter = CalendarWorkersAdapter(workersList?.data!!)
+                onVacationWorkersAdapter = CalendarWorkersAdapter(filteredWorkersList!!)
+
                 recyclerVariable = view.findViewById(R.id.recycler_on_vacation_container)
                 recyclerVariable.layoutManager =
                     LinearLayoutManager(activityParent, LinearLayoutManager.VERTICAL, false)
                     recyclerVariable.adapter = onVacationWorkersAdapter
 
-
-                    /*Ciclo para almacenar los empleados con vacaciones en una Lista*/
-                for(worker in workersList?.data!!){
-                    if(worker!!.attributes!!.endDate != null){
-                        listaVacaciones.add(ArrayWorkerClass(nombre=worker!!.attributes!!.workerName.toString(),
-                            fecha_inicio=worker!!.attributes!!.startDate.toString(),
-                            fecha_final=worker!!.attributes!!.endDate.toString()))
-                    }
-                }
-
-
                             /*CICLO PARA OBTENER FECHAS DE VACACIONES*/
-                for(empleadoVacacion in listaVacaciones){
-                    if(empleadoVacacion.fecha_final != null){
-                        var inicio = empleadoVacacion.fecha_inicio!!.split("-")
-                        var fin = empleadoVacacion.fecha_final!!.split("-")
-                        calendario.setDateSelected((CalendarDay(year= inicio[2].toInt(), month= inicio[0].toInt() - 1, day= inicio[1].toInt())), true).apply {  }
+                for(empleadoVacacion in filteredWorkersList!!){
+                    if(empleadoVacacion?.attributes?.endDate != null){
+                        var inicio = empleadoVacacion.attributes?.startDate?.split("-")
+                        var fin = empleadoVacacion.attributes?.endDate?.split("-")
+                        if (inicio != null)
+                            calendario.setDateSelected((CalendarDay(year= inicio[2].toInt(), month= inicio[0].toInt() - 1, day= inicio[1].toInt())), true)
 
-                        calendario.setDateSelected((CalendarDay(year= fin[2].toInt(), month= fin[0].toInt() - 1, day= fin[1].toInt())), true).apply {  }
+                        if(fin != null)
+                            calendario.setDateSelected((CalendarDay(year= fin[2].toInt(), month= fin[0].toInt() - 1, day= fin[1].toInt())), true)
 
 
                     }
