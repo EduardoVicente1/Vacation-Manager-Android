@@ -142,6 +142,10 @@ class PendingsFragment : Fragment() {
         )
     }
 
+    /************************
+     * falta confirmar en vista aceptar y rechazar
+     *
+     */
     private fun acceptVacation(workerData: WorkersGetResponse.Data?) {
         Log.d("Button", "acceptVacation")
         var newWorkerData = WorkerPutRequest(WorkerPutRequest.Data(null,null,null,null,null,null,null))

@@ -38,7 +38,7 @@ class WorkersHabilitadosAdapter(var habilitadosAdapter: List<WorkersGetResponse.
                     R.color.familiar))
                 "Atlas" -> imgHabilitados.setBackgroundColor(ContextCompat.getColor(view.context,
                     R.color.atlas))
-                "GNB" -> imgHabilitados.setBackgroundColor(ContextCompat.getColor(view.context,
+                "GNB FUSION" -> imgHabilitados.setBackgroundColor(ContextCompat.getColor(view.context,
                     R.color.gnb))
                 "Sudameris" -> imgHabilitados.setBackgroundColor(ContextCompat.getColor(view.context,
                     R.color.sudameris))

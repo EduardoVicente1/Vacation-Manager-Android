@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import com.example.vacation_manager_android.Errorcsm
+import com.example.vacation_manager_android.BaseFragment
 import com.example.vacation_manager_android.R
 import com.example.vacation_manager_android.retrofit.ApiEndpoints
 import com.example.vacation_manager_android.retrofit.RetrofitClient
@@ -28,7 +28,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [FragmentRecordarPass.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FragmentRecordarPass : Fragment() {
+class FragmentRecordarPass : BaseFragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -40,7 +40,7 @@ class FragmentRecordarPass : Fragment() {
 
     lateinit var retroFitConnection : ApiEndpoints
     private var userbd: UserGetResponse?= null
-    val errorcsm = Errorcsm()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -89,11 +89,11 @@ class FragmentRecordarPass : Fragment() {
                     //aqui envio el correo
                 }else{
                     errortxt.text="E-mail no registrado"
-                    errorcsm.texterror(errortxt,requireContext())
+                    texterror(errortxt,requireContext())
                 }
             }else{
                 errortxt.text="Ingrese su e-mail!"
-                errorcsm.texterror(errortxt,requireContext())
+                texterror(errortxt,requireContext())
             }
         }
     }

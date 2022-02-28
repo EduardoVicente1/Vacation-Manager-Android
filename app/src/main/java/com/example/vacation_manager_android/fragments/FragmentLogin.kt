@@ -1,5 +1,6 @@
 package com.example.vacation_manager_android.fragments
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -31,7 +32,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [FragmentLogin.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FragmentLogin : Fragment() {
+class FragmentLogin : BaseFragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -48,11 +49,8 @@ class FragmentLogin : Fragment() {
     private lateinit var sharedP: SharedPreferences
 
     var passDesEncript=""
-    private var encripDesencrip= Encriptado()
 
     lateinit var txtRegistro: TextView
-
-    val errorcsm = Errorcsm()
 
     lateinit var retroFitConnection : ApiEndpoints
     private var userbd: UserGetResponse?= null
@@ -149,28 +147,28 @@ class FragmentLogin : Fragment() {
                 } else if (usuario != userprueba && password != passprueba) {
                     //usuario y contraseña incorrectas
                     error.setText("Usuario y contraseña incorrectas")
-                    errorcsm.texterror(error, requireContext())
+                    texterror(error, requireContext())
                 } else if (password != passprueba) {
                     //contraseña incorrecta
                     error.setText("Contraseña incorrecta")
-                    errorcsm.texterror(error, requireContext())
+                    texterror(error, requireContext())
                 }
             }else{
                 error.text="Ese usuario no existe"
-                errorcsm.texterror(error,requireContext())
+                texterror(error,requireContext())
             }
         }else if(usuario.isNotEmpty()){
             //contraseña vacia
             error.setText("Contraseña vacia")
-            errorcsm.texterror(error,requireContext())
+            texterror(error,requireContext())
         }else if(password.isNotEmpty()){
             //usuario vacio
             error.setText("Usuario vacio")
-            errorcsm.texterror(error,requireContext())
+            texterror(error,requireContext())
         }else{
             //error: Campos vacios
             error.setText("Campos vacios")
-            errorcsm.texterror(error,requireContext())
+            texterror(error,requireContext())
         }
         return esCorrecto
     }
@@ -226,7 +224,7 @@ class FragmentLogin : Fragment() {
                     existeUser=true
                     userprueba=usuario
                     passprueba=userbd!!.data?.get(i)?.attributes?.password.toString()
-                    passDesEncript=encripDesencrip.desencriptar(passprueba,encripDesencrip.clave)
+                    passDesEncript=desencriptar(passprueba, clave)
                     passprueba=passDesEncript
                 }
             }

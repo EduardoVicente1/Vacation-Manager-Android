@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import com.example.vacation_manager_android.Encriptado
-import com.example.vacation_manager_android.Errorcsm
+import com.example.vacation_manager_android.BaseFragment
 import com.example.vacation_manager_android.R
 import com.example.vacation_manager_android.retrofit.ApiEndpoints
 import com.example.vacation_manager_android.retrofit.RetrofitClient
@@ -29,7 +28,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [FragmentRegister.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FragmentRegister : Fragment() {
+class FragmentRegister : BaseFragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -39,16 +38,12 @@ class FragmentRegister : Fragment() {
     lateinit var txt_email: EditText
     lateinit var txt_pass1: EditText
     lateinit var txt_pass2: EditText
-    val errorc=Errorcsm()
     lateinit var txterror: TextView
 
     lateinit var retroFitConnection : ApiEndpoints
     private var userInfo: UserInfoRegister?= null
     private var userbd: UserGetResponse?= null
     var passEncript=""
-
-
-    private var encripDesencrip= Encriptado()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -130,7 +125,7 @@ class FragmentRegister : Fragment() {
                         if (txt_pass1.text.toString() == txt_pass2.text.toString()) {
                             //se guarda en la base de datos
 
-                                passEncript=encripDesencrip.encriptar(txt_pass1.text.toString(),encripDesencrip.clave)
+                                passEncript=encriptar(txt_pass1.text.toString(),clave)
                             userInfo = UserInfoRegister(
                                 UserInfoRegister.Data(
                                     password = passEncript,
@@ -141,7 +136,7 @@ class FragmentRegister : Fragment() {
                             )
                             addUser(userInfo!!) {}/***se añade a la base de datos***/
                             txterror.text = "Guardado con exito"
-                            errorc.texterror(txterror, requireContext())
+                            texterror(txterror, requireContext())
                             var frlogin=FragmentLogin.newInstance("","")
                             parentFragmentManager.beginTransaction()
                                 .replace(R.id.fragment_container,frlogin)
@@ -151,26 +146,26 @@ class FragmentRegister : Fragment() {
                             /**A partir de aqui el manejo de errores**/
                         } else {
                             txterror.text = "No coinciden las contraseñas"
-                            errorc.texterror(txterror, requireContext())
+                            texterror(txterror, requireContext())
                         }
                     }
                 }else{
                     txterror.text="Usuario ya registrado"
-                    errorc.texterror(txterror,requireContext())
+                    texterror(txterror,requireContext())
                     txt_user.setText("")
                  }
             }else if(txt_user.text.toString().isNotEmpty()&&txt_email.text.toString().isNotEmpty()){
                 txterror.text="Contraseña no puede estar vacia"
-                errorc.texterror(txterror,requireContext())
+                texterror(txterror,requireContext())
             }else if(txt_email.text.toString().isNotEmpty()&&txt_pass1.text.toString().isNotEmpty()){
                 txterror.text="Usuario no puede estar vacio"
-                errorc.texterror(txterror,requireContext())
+                texterror(txterror,requireContext())
             }else if(txt_user.text.toString().isNotEmpty() && txt_pass1.text.toString().isNotEmpty()){
                 txterror.text="E-mail no puede ser vacio"
-                errorc.texterror(txterror,requireContext())
+                texterror(txterror,requireContext())
             }else{
                 txterror.text="Todos los campos deben ser rellenados!"
-                errorc.texterror(txterror,requireContext())
+                texterror(txterror,requireContext())
             }
         }
     }
@@ -194,7 +189,7 @@ class FragmentRegister : Fragment() {
             if (userbd!!.data?.get(i)?.attributes?.userEmail.toString() == mail) {
                 txterror.text = "E-mail ya registrado"
                 txt_email.setText("")
-                errorc.texterror(txterror, requireContext())
+                texterror(txterror, requireContext())
                 noExiste = false
             }
         }

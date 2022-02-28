@@ -1,13 +1,26 @@
 package com.example.vacation_manager_android
 
+import android.content.Context
 import android.util.Base64
+import android.view.animation.AnimationUtils
+import android.widget.TextView
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import java.security.MessageDigest
 import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
 
-class Encriptado {
-
+open class BaseFragment: Fragment() {
     val clave = BuildConfig.TOKEN
+
+    fun texterror(textView: TextView, context: Context){
+        var animationSlideDown = AnimationUtils.loadAnimation(context, R.anim.slide_down)
+        textView.isVisible=true
+        textView.startAnimation(animationSlideDown)
+        textView.isVisible=false
+
+
+    }
 
     fun encriptar(datos: String, clave: String): String {
 
@@ -25,6 +38,7 @@ class Encriptado {
 
         return datosEncriptadosString
     }
+
     fun desencriptar(datos: String, clave: String): String{
 
         var secretKey: SecretKeySpec = generateKey(clave)
@@ -54,4 +68,5 @@ class Encriptado {
 
         return secretKey
     }
+
 }
