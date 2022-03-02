@@ -12,7 +12,28 @@ import com.example.vacation_manager_android.R
 import com.example.vacation_manager_android.data_classes.WorkersGetResponse
 
 class CalendarWorkersAdapter(var onVacationWorkersList: List<WorkersGetResponse.Data?>?) : RecyclerView.Adapter<CalendarWorkersAdapter.OnVacationWorkersHolder>(){
-    inner class OnVacationWorkersHolder (var view: View) : RecyclerView.ViewHolder(view){
+
+    private lateinit var mlistener : onItemClickListener
+
+    interface onItemClickListener{
+
+        fun onItemClick(position: Int){
+
+        }
+    }
+    fun setOnItemClickListener(listener: onItemClickListener){
+        mlistener = listener
+
+    }
+
+    inner class OnVacationWorkersHolder (var view: View, listener: onItemClickListener) : RecyclerView.ViewHolder(view){
+
+        init {
+            view.setOnClickListener{
+                listener.onItemClick(adapterPosition)
+            }
+        }
+
         var workerName : TextView= view.findViewById(R.id.calendar_worker_name)
         var workerTeam : TextView=view.findViewById(R.id.calendar_worker_team)
         var workerDateIni : TextView= view.findViewById(R.id.calendar_worker_fecha_ini)
@@ -25,7 +46,8 @@ class CalendarWorkersAdapter(var onVacationWorkersList: List<WorkersGetResponse.
             workerDateFin.text = onWorkerElement?.attributes?.endDate.toString()
             imgcolor=view.findViewById(R.id.img_calendar_worker_color)
 
-            when(workerTeam.text.toString()){
+            //2/3:agregue lowercase al when
+            when(workerTeam.text.toString().lowercase()){
                 "Itau Fabrica" -> imgcolor.setBackgroundColor(getColor(view.context,R.color.itau_fabrica))
                 "Itau Paseo" -> imgcolor.setBackgroundColor(getColor(view.context,R.color.itau_paseo))
                 "Familiar" -> imgcolor.setBackgroundColor(getColor(view.context,R.color.familiar))
@@ -43,8 +65,6 @@ class CalendarWorkersAdapter(var onVacationWorkersList: List<WorkersGetResponse.
                 "Tatakua Team" -> imgcolor.setBackgroundColor(getColor(view.context,R.color.tatakua_team))
                 "TH" -> imgcolor.setBackgroundColor(getColor(view.context,R.color.th))
                 "Victor Villalba" -> imgcolor.setBackgroundColor(getColor(view.context,R.color.victor_villalba))
-                "Walberto Team" -> imgcolor.setBackgroundColor(getColor(view.context,R.color.diseñadores))
-                "Manchester United 2" -> imgcolor.setBackgroundColor(getColor(view.context,R.color.soporte))
             }
         }
     }
@@ -53,7 +73,7 @@ class CalendarWorkersAdapter(var onVacationWorkersList: List<WorkersGetResponse.
         val view= LayoutInflater.from(parent.context)
             .inflate(R.layout.item_calendar_worker_recycler, parent, false)
 
-        return OnVacationWorkersHolder(view)
+        return OnVacationWorkersHolder(view, mlistener)
     }
 
     override fun onBindViewHolder(holder: OnVacationWorkersHolder, position: Int) {
