@@ -1,16 +1,22 @@
 package com.example.vacation_manager_android.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import com.example.vacation_manager_android.BaseFragment
 import com.example.vacation_manager_android.R
+import com.example.vacation_manager_android.data_classes.WorkerPutRequest
 import com.example.vacation_manager_android.retrofit.ApiEndpoints
 import com.example.vacation_manager_android.data_classes.WorkersGetResponse
 import com.google.android.material.textfield.TextInputEditText
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,7 +28,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [FragmentConfNuevoEmp.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FragmentConfNuevoEmp : Fragment() {
+class FragmentConfNuevoEmp : BaseFragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -63,7 +69,40 @@ class FragmentConfNuevoEmp : Fragment() {
         txt_workerEquipo=view.findViewById(R.id.tx_new_equipo)
         txt_workerMail=view.findViewById(R.id.tx_new_correo)
         btnSave=view.findViewById(R.id.btn_new_save)
+        txt_dia=view.findViewById(R.id.tx_new_dia)
+        txt_mes=view.findViewById(R.id.tx_new_meses)
+        txt_anio=view.findViewById(R.id.tx_new_anio)
 
+
+        btnSave.setOnClickListener {
+            val workerPutRequest = WorkerPutRequest(
+                WorkerPutRequest.Data(
+                    emailSended = false,
+                    endDate = null,
+                    onVacation = false,
+                    startDate = "${txt_mes.text}-${txt_dia.text}-${txt_anio.text}",
+                    workMail = txt_workerMail.text.toString(),
+                    workTeam = txt_workerEquipo.text.toString(),
+                    workerName = txt_worker.text.toString()
+                )
+            )
+            retrofit.newWorker(workerData = workerPutRequest).enqueue(
+                object : Callback<WorkerPutRequest>{
+                    override fun onResponse(
+                        call: Call<WorkerPutRequest>,
+                        response: Response<WorkerPutRequest>
+                    ) {
+                        Log.d("RESPONSE", response.message()+ " code: "+response.code())
+                    }
+
+                    override fun onFailure(call: Call<WorkerPutRequest>, t: Throwable) {
+                        Log.d("RESPONSE", t.message.toString())
+                    }
+
+                }
+            )
+
+        }
     }
 
     companion object {

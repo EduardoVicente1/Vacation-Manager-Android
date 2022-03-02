@@ -6,12 +6,15 @@ import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.example.vacation_manager_android.retrofit.ApiEndpoints
+import com.example.vacation_manager_android.retrofit.RetrofitClient
 import java.security.MessageDigest
 import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
 
 open class BaseFragment: Fragment() {
     val clave = BuildConfig.TOKEN
+    val retrofit : ApiEndpoints = RetrofitClient.getInstance()
 
     fun texterror(textView: TextView, context: Context){
         var animationSlideDown = AnimationUtils.loadAnimation(context, R.anim.slide_down)

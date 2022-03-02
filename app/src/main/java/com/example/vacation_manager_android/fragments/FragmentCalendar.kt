@@ -91,58 +91,90 @@ class FragmentCalendar : Fragment() {
                 recyclerVariable = view.findViewById(R.id.recycler_on_vacation_container)
                 recyclerVariable.layoutManager =
                     LinearLayoutManager(activityParent, LinearLayoutManager.VERTICAL, false)
-                    recyclerVariable.adapter = onVacationWorkersAdapter
+                recyclerVariable.adapter = onVacationWorkersAdapter
 
-                            /*CICLO PARA OBTENER FECHAS DE VACACIONES*/
-                for(empleadoVacacion in filteredWorkersList!!){
-                    if(empleadoVacacion?.attributes?.endDate != null){
+                /*CICLO PARA OBTENER FECHAS DE VACACIONES*/
+                for (empleadoVacacion in filteredWorkersList!!) {
+                    if (empleadoVacacion?.attributes?.endDate != null) {
                         var inicio = empleadoVacacion.attributes?.startDate?.split("-")
                         var fin = empleadoVacacion.attributes?.endDate?.split("-")
                         if (inicio != null)
-                            calendario.setDateSelected((CalendarDay(year= inicio[2].toInt(), month= inicio[0].toInt() - 1, day= inicio[1].toInt())), true)
+                            calendario.setDateSelected(
+                                (CalendarDay(
+                                    year = inicio[2].toInt(),
+                                    month = inicio[0].toInt() - 1,
+                                    day = inicio[1].toInt()
+                                )), true
+                            )
 
-                        if(fin != null)
-                            calendario.setDateSelected((CalendarDay(year= fin[2].toInt(), month= fin[0].toInt() - 1, day= fin[1].toInt())), true)
+                        if (fin != null)
+                            calendario.setDateSelected(
+                                (CalendarDay(
+                                    year = fin[2].toInt(),
+                                    month = fin[0].toInt() - 1,
+                                    day = fin[1].toInt()
+                                )), true
+                            )
 
 
-                    /*CICLO PARA ALMACENAR LOS EMPLEADOS CON VACACIONES EN UNA LISTA*/
-                for(worker in workersList?.data!!){
-                    if(worker!!.attributes!!.endDate != null){
-                        listaVacaciones.add(ArrayWorkerClass(nombre=worker!!.attributes!!.workerName.toString(),
-                            fecha_inicio=worker!!.attributes!!.startDate.toString(),
-                            fecha_final=worker!!.attributes!!.endDate.toString()))
-                    }
-                }
-
-                            /*CICLO PARA OBTENER FECHAS DE VACACIONES*/
-                for(empleadoVacacion in listaVacaciones){
-                    if(empleadoVacacion.fecha_final != null){
-                        val inicio = empleadoVacacion.fecha_inicio!!.split("-")
-                        val fin = empleadoVacacion.fecha_final!!.split("-")
-
-                                /*SE PINTA EL INICIO DE VACACION*/
-                        calendario.setDateSelected((CalendarDay(year= inicio[2].toInt(), month= inicio[0].toInt() - 1,
-                            day= inicio[1].toInt())), true).apply {  }
-
-                            /*VARIABLES AUXILIARES PARA RECORRER EL RANGO ENTRE DIAS*/
-                        val formato = DateTimeFormatter.ofPattern("MM-dd-yyyy")
-                        var inicio_auxiliar = LocalDate.parse(empleadoVacacion.fecha_inicio, formato)
-                        inicio_auxiliar = inicio_auxiliar.plusDays(1)
-                        val fin_auxiliar = LocalDate.parse(empleadoVacacion.fecha_final, formato)
-
-                            /*CICLO PARA PINTAR EL RANGO ENTRE LA FECHA INICIAL Y FINAL*/
-                        while(inicio_auxiliar != fin_auxiliar){
-                            calendario.setDateSelected(CalendarDay(year= inicio_auxiliar.year,
-                                month= inicio_auxiliar.monthValue - 1,
-                                day= inicio_auxiliar.dayOfMonth),
-                                true)
-                            inicio_auxiliar = inicio_auxiliar.plusDays(1)
+                        /*CICLO PARA ALMACENAR LOS EMPLEADOS CON VACACIONES EN UNA LISTA*/
+                        for (worker in workersList?.data!!) {
+                            if (worker!!.attributes!!.endDate != null) {
+                                listaVacaciones.add(
+                                    ArrayWorkerClass(
+                                        nombre = worker!!.attributes!!.workerName.toString(),
+                                        fecha_inicio = worker!!.attributes!!.startDate.toString(),
+                                        fecha_final = worker!!.attributes!!.endDate.toString()
+                                    )
+                                )
+                            }
                         }
 
-                            /*SE PINTA LA FECHA FINAL*/
-                        calendario.setDateSelected((CalendarDay(year= fin[2].toInt(),
-                            month= fin[0].toInt() - 1,
-                            day= fin[1].toInt())), true).apply {  }
+                        /*CICLO PARA OBTENER FECHAS DE VACACIONES*/
+                        for (empleadoVacacion in listaVacaciones) {
+                            if (empleadoVacacion.fecha_final != null) {
+                                val inicio = empleadoVacacion.fecha_inicio!!.split("-")
+                                val fin = empleadoVacacion.fecha_final!!.split("-")
+
+                                /*SE PINTA EL INICIO DE VACACION*/
+                                calendario.setDateSelected(
+                                    (CalendarDay(
+                                        year = inicio[2].toInt(), month = inicio[0].toInt() - 1,
+                                        day = inicio[1].toInt()
+                                    )), true
+                                ).apply { }
+
+                                /*VARIABLES AUXILIARES PARA RECORRER EL RANGO ENTRE DIAS*/
+                                val formato = DateTimeFormatter.ofPattern("MM-dd-yyyy")
+                                var inicio_auxiliar =
+                                    LocalDate.parse(empleadoVacacion.fecha_inicio, formato)
+                                inicio_auxiliar = inicio_auxiliar.plusDays(1)
+                                val fin_auxiliar =
+                                    LocalDate.parse(empleadoVacacion.fecha_final, formato)
+
+                                /*CICLO PARA PINTAR EL RANGO ENTRE LA FECHA INICIAL Y FINAL*/
+                                while (inicio_auxiliar != fin_auxiliar) {
+                                    calendario.setDateSelected(
+                                        CalendarDay(
+                                            year = inicio_auxiliar.year,
+                                            month = inicio_auxiliar.monthValue - 1,
+                                            day = inicio_auxiliar.dayOfMonth
+                                        ),
+                                        true
+                                    )
+                                    inicio_auxiliar = inicio_auxiliar.plusDays(1)
+                                }
+
+                                /*SE PINTA LA FECHA FINAL*/
+                                calendario.setDateSelected(
+                                    (CalendarDay(
+                                        year = fin[2].toInt(),
+                                        month = fin[0].toInt() - 1,
+                                        day = fin[1].toInt()
+                                    )), true
+                                ).apply { }
+                            }
+                        }
                     }
                 }
             }

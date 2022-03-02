@@ -84,7 +84,17 @@ class FragmentHome : Fragment() {
 
                         workersList?.data?.forEach {
                             var fecha = it?.attributes?.startDate?.split("-")
-                            var workDate = LocalDate.parse("${fecha?.get(2)}-${fecha?.get(0)}-${fecha?.get(1)}", fmt)
+
+                            var workDate = LocalDate.parse("${fecha?.get(2)}" +
+                                    "-${if (fecha?.get(1)?.length == 1)
+                                        "0"+fecha?.get(2)
+                                        else
+                                            fecha?.get(1)}" +
+                                    "-${if (fecha?.get(0)?.length == 1)
+                                        "0"+fecha?.get(0)
+                                        else
+                                            fecha?.get(0)}", fmt)
+
                             var period = Period.between(workDate, ahora)
                             if (period.years == 0) {
 
