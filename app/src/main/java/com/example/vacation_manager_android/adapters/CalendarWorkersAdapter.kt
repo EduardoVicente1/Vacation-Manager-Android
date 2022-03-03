@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vacation_manager_android.R
 import com.example.vacation_manager_android.data_classes.WorkersGetResponse
 
-class CalendarWorkersAdapter(var onVacationWorkersList: List<WorkersGetResponse.Data?>?) : RecyclerView.Adapter<CalendarWorkersAdapter.OnVacationWorkersHolder>(){
+class CalendarWorkersAdapter(var onVacationWorkersList: List<WorkersGetResponse.Data?>?, var callback: (workerData: WorkersGetResponse.Data?) -> Unit) : RecyclerView.Adapter<CalendarWorkersAdapter.OnVacationWorkersHolder>(){
+
 
     inner class OnVacationWorkersHolder (var view: View) : RecyclerView.ViewHolder(view){
 
@@ -20,6 +23,14 @@ class CalendarWorkersAdapter(var onVacationWorkersList: List<WorkersGetResponse.
         var workerDateIni : TextView= view.findViewById(R.id.calendar_worker_fecha_ini)
         var workerDateFin : TextView= view.findViewById(R.id.calendar_worker_fecha_fin)
         lateinit var imgcolor: ImageView
+
+        init {
+            view.setOnClickListener{ v: View ->
+                val pos: Int = adapterPosition
+                val elemento: OnVacationWorkersHolder
+                Toast.makeText(view.context,"Presionaste al empleado ${pos + 1}", Toast.LENGTH_SHORT).show()
+            }
+        }
         fun bind(onWorkerElement: WorkersGetResponse.Data?){
             workerName.text = onWorkerElement?.attributes?.workerName.toString()
             workerTeam.text = onWorkerElement?.attributes?.workTeam.toString()
@@ -53,9 +64,7 @@ class CalendarWorkersAdapter(var onVacationWorkersList: List<WorkersGetResponse.
         val view= LayoutInflater.from(parent.context)
             .inflate(R.layout.item_calendar_worker_recycler, parent, false)
 
-        return OnVacationWorkersHolder(view).listen{pos, type ->
-            val item= onVacationWorkersList?.get(pos)
-        }
+        return OnVacationWorkersHolder(view)
     }
 
     override fun onBindViewHolder(holder: OnVacationWorkersHolder, position: Int) {
@@ -66,10 +75,4 @@ class CalendarWorkersAdapter(var onVacationWorkersList: List<WorkersGetResponse.
         Log.d("pendingWorkerList.size",onVacationWorkersList?.size.toString())
         return onVacationWorkersList?.size!!
     }
-}
-fun <T : RecyclerView.ViewHolder> T.listen(event : (position: Int, type: Int) -> Unit): T{
-    itemView.setOnClickListener{
-        event.invoke(adapterPosition, itemViewType)
-    }
-    return this
 }

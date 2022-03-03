@@ -84,7 +84,7 @@ class FragmentCalendar : Fragment() {
                 if (response.body() != null) {
                     workersList = response.body()
 
-                    /*Filtro para traer solamente empleados en vacaciones*/
+                    /*FILTRO PARA TRAER SOLAMENTE EMPLEADOS CON VACACIONES*/
                     filteredWorkersList = workersList?.data?.filter {
                         it?.attributes?.onVacation == true
                     }
@@ -143,13 +143,6 @@ class FragmentCalendar : Fragment() {
             }
         })
     }
-
-//    fun <T : RecyclerView.ViewHolder> T.listen(event : (position: Int, type: Int) -> Unit): T{
-//        itemView.setOnClickListener{
-//            event.invoke(adapterPosition, itemViewType)
-//        }
-//        return this
-//    }
 
     companion object {
         @JvmStatic
