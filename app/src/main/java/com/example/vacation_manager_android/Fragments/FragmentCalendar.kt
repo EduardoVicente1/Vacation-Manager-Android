@@ -1,5 +1,6 @@
 package com.example.vacation_manager_android.Fragments
 
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -35,7 +36,10 @@ class FragmentCalendar : Fragment() {
     private var workersList: WorkersGetResponse?= null
     lateinit var calendario: MaterialCalendarView
     lateinit var listaVacaciones: MutableList<ArrayWorkerClass>
-
+    private var filteredWorkersList : List<WorkersGetResponse.Data?>? = null
+    lateinit var onVacationWorkersAdapter: CalendarWorkersAdapter
+    lateinit var recyclerVariable : RecyclerView
+    lateinit var activityParent : Activity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,15 +63,12 @@ class FragmentCalendar : Fragment() {
 
         listaVacaciones = mutableListOf(ArrayWorkerClass(nombre = null, fecha_inicio = null, fecha_final = null))
 
-        var activityParent = activity as HostActivity
+        activityParent = activity as HostActivity
 
         calendario = view.findViewById(R.id.calendar)
 
             /*CAMBIAR EL MODO DE SELECCION DEL CALENDARIO A MULTIPLE*/
         calendario.selectionMode = SELECTION_MODE_MULTIPLE
-
-        lateinit var onVacationWorkersAdapter: CalendarWorkersAdapter
-        lateinit var recyclerVariable : RecyclerView
 
         retroFitConnection = RetrofitClient.getInstance()
         retroFitConnection.getAllWorkers().enqueue(
@@ -81,8 +82,14 @@ class FragmentCalendar : Fragment() {
 
                 if (response.body() != null) {
                     workersList = response.body()
+
+                    /*Filtro para traer solamente empleados en vacaciones*/
+                    filteredWorkersList = workersList?.data?.filter {
+                        it?.attributes?.onVacation == true
+                    }
+                    Log.d("FILTER", filteredWorkersList.toString())
                 }
-                onVacationWorkersAdapter = CalendarWorkersAdapter(workersList?.data)
+                onVacationWorkersAdapter = CalendarWorkersAdapter(filteredWorkersList)
                 recyclerVariable = view.findViewById(R.id.recycler_on_vacation_container)
                 recyclerVariable.layoutManager =
                     LinearLayoutManager(activityParent, LinearLayoutManager.VERTICAL, false)
