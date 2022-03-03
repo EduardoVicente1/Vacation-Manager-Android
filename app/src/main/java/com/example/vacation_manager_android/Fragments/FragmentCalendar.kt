@@ -23,7 +23,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.util.*
+
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -42,7 +42,6 @@ class FragmentCalendar : Fragment() {
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
-
         }
     }
 
@@ -53,7 +52,6 @@ class FragmentCalendar : Fragment() {
         // Inflate the layout for this fragment
 
         return inflater.inflate(R.layout.fragment_calendar, container, false)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,6 +62,9 @@ class FragmentCalendar : Fragment() {
         var activityParent = activity as HostActivity
 
         calendario = view.findViewById(R.id.calendar)
+
+            /*CAMBIAR EL MODO DE SELECCION DEL CALENDARIO A MULTIPLE*/
+        calendario.selectionMode = SELECTION_MODE_MULTIPLE
 
         lateinit var onVacationWorkersAdapter: CalendarWorkersAdapter
         lateinit var recyclerVariable : RecyclerView
@@ -87,8 +88,7 @@ class FragmentCalendar : Fragment() {
                     LinearLayoutManager(activityParent, LinearLayoutManager.VERTICAL, false)
                     recyclerVariable.adapter = onVacationWorkersAdapter
 
-
-                    /*Ciclo para almacenar los empleados con vacaciones en una Lista*/
+                    /*CICLO PARA ALMACENAR LOS EMPLEADOS CON VACACIONES EN UNA LISTA*/
                 for(worker in workersList?.data!!){
                     if(worker!!.attributes!!.endDate != null){
                         listaVacaciones.add(ArrayWorkerClass(nombre=worker!!.attributes!!.workerName.toString(),
@@ -97,33 +97,46 @@ class FragmentCalendar : Fragment() {
                     }
                 }
 
-
                             /*CICLO PARA OBTENER FECHAS DE VACACIONES*/
                 for(empleadoVacacion in listaVacaciones){
                     if(empleadoVacacion.fecha_final != null){
-                        var inicio = empleadoVacacion.fecha_inicio!!.split("-")
-                        var fin = empleadoVacacion.fecha_final!!.split("-")
-                        calendario.setDateSelected((CalendarDay(year= inicio[2].toInt(), month= inicio[0].toInt() - 1, day= inicio[1].toInt())), true).apply {  }
+                        val inicio = empleadoVacacion.fecha_inicio!!.split("-")
+                        val fin = empleadoVacacion.fecha_final!!.split("-")
 
-                        calendario.setDateSelected((CalendarDay(year= fin[2].toInt(), month= fin[0].toInt() - 1, day= fin[1].toInt())), true).apply {  }
+                                /*SE PINTA EL INICIO DE VACACION*/
+                        calendario.setDateSelected((CalendarDay(year= inicio[2].toInt(), month= inicio[0].toInt() - 1,
+                            day= inicio[1].toInt())), true).apply {  }
 
+                            /*VARIABLES AUXILIARES PARA RECORRER EL RANGO ENTRE DIAS*/
+                        val formato = DateTimeFormatter.ofPattern("MM-dd-yyyy")
+                        var inicio_auxiliar = LocalDate.parse(empleadoVacacion.fecha_inicio, formato)
+                        inicio_auxiliar = inicio_auxiliar.plusDays(1)
+                        val fin_auxiliar = LocalDate.parse(empleadoVacacion.fecha_final, formato)
 
+                            /*CICLO PARA PINTAR EL RANGO ENTRE LA FECHA INICIAL Y FINAL*/
+                        while(inicio_auxiliar != fin_auxiliar){
+                            calendario.setDateSelected(CalendarDay(year= inicio_auxiliar.year,
+                                month= inicio_auxiliar.monthValue - 1,
+                                day= inicio_auxiliar.dayOfMonth),
+                                true)
+                            inicio_auxiliar = inicio_auxiliar.plusDays(1)
+                        }
+
+                            /*SE PINTA LA FECHA FINAL*/
+                        calendario.setDateSelected((CalendarDay(year= fin[2].toInt(),
+                            month= fin[0].toInt() - 1,
+                            day= fin[1].toInt())), true).apply {  }
                     }
                 }
-
             }
 
             override fun onFailure(call: Call<WorkersGetResponse>, t: Throwable) {
                 Log.d("Error", t.toString())
             }
         })
-                /*Cambiar el modo de seleccion del calendario a multiple*/
-        calendario.selectionMode = SELECTION_MODE_MULTIPLE
-
     }
 
     companion object {
-
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             FragmentCalendar().apply {
@@ -133,9 +146,5 @@ class FragmentCalendar : Fragment() {
                 }
             }
     }
-
-
-
-
 }
 
