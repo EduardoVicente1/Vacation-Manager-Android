@@ -7,12 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vacation_manager_android.HostActivity
 import com.example.vacation_manager_android.R
 import com.example.vacation_manager_android.Retrofit.ApiEndpoints
+import com.example.vacation_manager_android.Retrofit.RetrofitCallback
 import com.example.vacation_manager_android.Retrofit.RetrofitClient
 import com.example.vacation_manager_android.adapters.PendingWorkersAdapter
 import com.example.vacation_manager_android.data_classes.WorkerPutRequest
@@ -41,8 +41,7 @@ class PendingsFragment : Fragment() {
     lateinit var pendingWorkersAdapter : PendingWorkersAdapter
     lateinit var recyclerVariable : RecyclerView
 
-    lateinit var retroFitConnection : ApiEndpoints
-    private var allWorkersList: WorkersGetResponse? = null
+    lateinit var retroFitInstance : ApiEndpoints
     private var filteredWorkersList : List<WorkersGetResponse.Data?>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,36 +65,33 @@ class PendingsFragment : Fragment() {
 
         activityParent = activity as HostActivity
 
-        retroFitConnection = RetrofitClient.getInstance()
-        retroFitConnection.getAllWorkers().enqueue(
+        retroFitInstance = RetrofitClient.getInstance()
+        retroFitInstance.getPendingWorkers().enqueue(
 
-            object : Callback<WorkersGetResponse> {
-                override fun onResponse(call: Call<WorkersGetResponse>, response: Response<WorkersGetResponse>) {
-                    Log.d("GetRESPONSE", response.body().toString())
+            object : RetrofitCallback<Any>() {
+                override fun onResponse(request: Call<Any>, response: Response<Any>) {
+                    super.onResponse(request, response)
+                    if (response.isSuccessful){
+                        Log.d("RetrofitOnSuccess", "All workers retrieved with success")
+                        val allWorkersList : WorkersGetResponse = response.body() as WorkersGetResponse
 
-                    if(response.body() != null) {
-                        allWorkersList = response.body()
-
-                        filteredWorkersList = allWorkersList?.data?.filter {
+                        filteredWorkersList = allWorkersList.data?.filter {
                             it?.attributes?.emailSended == false
                         }
-                    }
-                    Log.d("GetRESPONSE", filteredWorkersList.toString())
 
-                    pendingWorkersAdapter = PendingWorkersAdapter(filteredWorkersList){
-                        workerData, action ->
-                        when(action){
-                            "accept" -> acceptVacation(workerData)
-                            "reject" -> rejectVacation(workerData)
-                            "edit" -> editVacation(workerData)
+                        pendingWorkersAdapter = PendingWorkersAdapter(filteredWorkersList){
+                            workerData, action ->
+                            when(action){
+                                "accept" -> acceptVacation(workerData)
+                                "reject" -> rejectVacation(workerData)
+                                "edit" -> editVacation(workerData)
+                            }
                         }
+
+                        recyclerVariable = view.findViewById(R.id.recycler_container)
+                        recyclerVariable.layoutManager = LinearLayoutManager(activityParent, LinearLayoutManager.VERTICAL, false)
+                        recyclerVariable.adapter = pendingWorkersAdapter
                     }
-                    recyclerVariable = view.findViewById(R.id.recycler_container)
-                    recyclerVariable.layoutManager = LinearLayoutManager(activityParent, LinearLayoutManager.VERTICAL, false)
-                    recyclerVariable.adapter = pendingWorkersAdapter
-                }
-                override fun onFailure(call: Call<WorkersGetResponse>, t: Throwable) {
-                    Log.d("Error", t.toString())
                 }
             }
         )
@@ -106,70 +102,64 @@ class PendingsFragment : Fragment() {
         Log.d("Button", "editVacation")
         activity?.supportFragmentManager?.popBackStack()
         activity?.supportFragmentManager?.beginTransaction()
-            ?.replace(R.id.contiene_Fragments, SetDateFragment.newInstance("",""))
+            ?.replace(R.id.contiene_Fragments, SetDateFragment.newInstance(workerData))
             ?.addToBackStack(null)
             ?.commit()
     }
 
     private fun rejectVacation(workerData: WorkersGetResponse.Data?) {
-        Log.d("Button", "rejectVacation")
-        var newWorkerData = WorkerPutRequest(WorkerPutRequest.Data(null,null,null,null,null,null,null))
-        newWorkerData!!.data!!.emailSended = false
-        newWorkerData!!.data!!.endDate = workerData!!.attributes!!.endDate
-        newWorkerData!!.data!!.onVacation = false
-        newWorkerData!!.data!!.startDate = workerData!!.attributes!!.startDate
-        newWorkerData!!.data!!.workMail = workerData!!.attributes!!.workMail
-        newWorkerData!!.data!!.workTeam = workerData!!.attributes!!.workTeam
-        newWorkerData!!.data!!.workerName = workerData!!.attributes!!.workerName
-        Log.d("newWorkerData",newWorkerData.toString())
+        var newWorkerData = WorkerPutRequest(
+            WorkerPutRequest.Data(
+                workerData?.attributes?.emailSended,
+                workerData?.attributes?.endDate,
+                false,
+                workerData?.attributes?.startDate,
+                workerData?.attributes?.workMail,
+                workerData?.attributes?.workTeam,
+                workerData?.attributes?.workerName
+            )
+        )
 
-        retroFitConnection = RetrofitClient.getInstance()
-        retroFitConnection.updateWorker(workerData.id.toString(), newWorkerData).enqueue(
-
-            object : Callback<Any> {
-                override fun onResponse(
-                    call: Call<Any>,
-                    response: Response<Any>
-                ) {
-                    if(response.body() != null) {
-                        Log.d("RESPONSE", response.body().toString())
+        retroFitInstance = RetrofitClient.getInstance()
+        retroFitInstance.updateWorker(workerData?.id.toString(), newWorkerData).enqueue(
+            object : RetrofitCallback<Any>() {
+                override fun onResponse(call: Call<Any>, response: Response<Any>) {
+                    super.onResponse(call, response)
+                    if(response.isSuccessful){
+                        Log.d("RetrofitOnSuccess", "vacation rejected for worker: "+workerData?.attributes?.workerName.toString())
                     }
-                }
-
-                override fun onFailure(call: Call<Any>, t: Throwable) {
-                    Log.d("Error", t.toString())
                 }
             }
         )
     }
 
     private fun acceptVacation(workerData: WorkersGetResponse.Data?) {
-        Log.d("Button", "acceptVacation")
-        var newWorkerData = WorkerPutRequest(WorkerPutRequest.Data(null,null,null,null,null,null,null))
-        newWorkerData!!.data!!.emailSended = workerData!!.attributes!!.emailSended
-        newWorkerData!!.data!!.endDate = workerData!!.attributes!!.endDate
-        newWorkerData!!.data!!.onVacation = true
-        newWorkerData!!.data!!.startDate = workerData!!.attributes!!.startDate
-        newWorkerData!!.data!!.workMail = workerData!!.attributes!!.workMail
-        newWorkerData!!.data!!.workTeam = workerData!!.attributes!!.workTeam
-        newWorkerData!!.data!!.workerName = workerData!!.attributes!!.workerName
-        Log.d("newWorkerData",newWorkerData.toString())
+        workerData?.attributes?.onVacation = true
+        var newWorkerData = WorkerPutRequest(
+            WorkerPutRequest.Data(
+                workerData?.attributes?.emailSended,
+                workerData?.attributes?.endDate,
+                workerData?.attributes?.onVacation,
+                workerData?.attributes?.startDate,
+                workerData?.attributes?.workMail,
+                workerData?.attributes?.workTeam,
+                workerData?.attributes?.workerName
+            )
+        )
 
-        retroFitConnection = RetrofitClient.getInstance()
-        retroFitConnection.updateWorker(workerData.id.toString(), newWorkerData).enqueue(
-
-            object : Callback<Any> {
-                override fun onResponse(
-                    call: Call<Any>,
-                    response: Response<Any>
-                ) {
-                    if(response.body() != null) {
-                        Log.d("RESPONSE", response.body().toString())
+        retroFitInstance = RetrofitClient.getInstance()
+        retroFitInstance.updateWorker(workerData?.id.toString(), newWorkerData).enqueue(
+            object : RetrofitCallback<Any>() {
+                override fun onResponse(request: Call<Any>, response: Response<Any>) {
+                    super.onResponse(request, response)
+                    if(response.isSuccessful){
+                        Log.d("RetrofitOnSuccess", "vacation accepted for worker: "+workerData?.attributes?.workerName.toString())
+                        activity?.supportFragmentManager?.popBackStack()
+                        activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(R.id.contiene_Fragments, SetDateFragment.newInstance(workerData))
+                            ?.addToBackStack(null)
+                            ?.commit()
                     }
-                }
-
-                override fun onFailure(call: Call<Any>, t: Throwable) {
-                    Log.d("Error", t.toString())
                 }
             }
         )

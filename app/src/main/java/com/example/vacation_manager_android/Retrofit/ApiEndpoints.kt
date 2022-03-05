@@ -23,4 +23,8 @@ interface ApiEndpoints {
     @POST("/api/workers-inf/")
     fun newWorker(@Body workerData: WorkerPutRequest): Call<WorkerPutRequest>
 
+    @GET("/api/workers-inf/?pagination[page]=1&pagination[pageSize]=100&sort[0]=email_sended%3Adesc")
+    fun getPendingWorkers(): Call<Any>
+
+
 }

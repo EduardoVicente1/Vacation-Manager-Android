@@ -1,7 +1,9 @@
 package com.example.vacation_manager_android.data_classes
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class WorkersGetResponse(
     @SerializedName("data")
@@ -9,12 +11,14 @@ data class WorkersGetResponse(
     @SerializedName("meta")
     var meta: Meta?
 ) {
+    @Parcelize
     data class Data(
         @SerializedName("attributes")
         var attributes: Attributes?,
         @SerializedName("id")
         var id: Int?
-    ) {
+    ) : Parcelable {
+        @Parcelize
         data class Attributes(
             @SerializedName("createdAt")
             var createdAt: String?,
@@ -36,7 +40,7 @@ data class WorkersGetResponse(
             var onVacation: Boolean?,
             @SerializedName("end_date")
             var endDate : String?
-        )
+        ) : Parcelable
     }
 
     data class Meta(
