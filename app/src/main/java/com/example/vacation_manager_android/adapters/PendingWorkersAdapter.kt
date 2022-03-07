@@ -1,5 +1,6 @@
 package com.example.vacation_manager_android.adapters
 
+import android.text.Layout
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ScrollCaptureCallback
@@ -20,18 +21,14 @@ class PendingWorkersAdapter(var pendingWorkersList : List<WorkersGetResponse.Dat
         var pendingWorkerName : TextView = view.findViewById(R.id.pending_worker_name)
         var pendingWorkerTeam : TextView = view.findViewById(R.id.pending_worker_team)
 
-        var pendingWorkerStartDate : TextView = view.findViewById(R.id.pending_worker_start_Date)
-        var pendingWorkerFinishDate : TextView = view.findViewById(R.id.pending_worker_finish_Date)
-
         var pendingWorkerAccept : ImageView = view.findViewById(R.id.pending_worker_accept_button)
         var pendingWorkerReject : ImageView = view.findViewById(R.id.pending_worker_reject_button)
         var pendingWorkerEdit : ImageView = view.findViewById(R.id.pending_worker_edit_button)
 
         fun bind(elementList: WorkersGetResponse.Data?){
+
             pendingWorkerName.text = elementList?.attributes?.workerName.toString()
             pendingWorkerTeam.text = elementList?.attributes?.workTeam.toString()
-            pendingWorkerStartDate.text = "Inicia: \n"+elementList?.attributes?.startDate.toString()
-            pendingWorkerFinishDate.text = "Finaliza: \n"+elementList?.attributes?.endDate.toString()
 
             pendingWorkerAccept.setOnClickListener{
                 callback(elementList, "accept")
@@ -45,7 +42,7 @@ class PendingWorkersAdapter(var pendingWorkersList : List<WorkersGetResponse.Dat
                 callback(elementList, "edit")
             }
 
-            when(elementList?.attributes?.workTeam.toString()){
+            when(pendingWorkerTeam.text.toString()){
                 "Itau Fabrica" -> pendingWorkerTeamColor.setBackgroundColor(getColor(view.context,R.color.itau_fabrica))
                 "Itau Paseo" -> pendingWorkerTeamColor.setBackgroundColor(getColor(view.context,R.color.itau_paseo))
                 "Familiar" -> pendingWorkerTeamColor.setBackgroundColor(getColor(view.context,R.color.familiar))
