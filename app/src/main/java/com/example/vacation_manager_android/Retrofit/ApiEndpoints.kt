@@ -26,5 +26,4 @@ interface ApiEndpoints {
     @GET("/api/workers-inf/?pagination[page]=1&pagination[pageSize]=100&sort[0]=email_sended%3Adesc")
     fun getPendingWorkers(): Call<Any>
 
-
 }
