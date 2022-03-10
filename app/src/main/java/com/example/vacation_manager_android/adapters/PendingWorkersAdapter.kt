@@ -14,9 +14,11 @@ import com.example.vacation_manager_android.R
 import com.example.vacation_manager_android.data_classes.WorkersGetResponse
 
 class PendingWorkersAdapter(var pendingWorkersList : List<WorkersGetResponse.Data?>?, var callback: (workerData : WorkersGetResponse.Data?, action : String) -> Unit ) :  RecyclerView.Adapter<PendingWorkersAdapter.PendingWorkersHolder>(){
-
     inner class PendingWorkersHolder (var view: View) : RecyclerView.ViewHolder(view){
         var pendingWorkerTeamColor : View = view.findViewById(R.id.pending_worker_team_color)
+
+        var pendingWorkerStartDate : TextView = view.findViewById(R.id.pending_worker_start_Date)
+        var pendingWorkerFinishDate : TextView = view.findViewById(R.id.pending_worker_finish_Date)
 
         var pendingWorkerName : TextView = view.findViewById(R.id.pending_worker_name)
         var pendingWorkerTeam : TextView = view.findViewById(R.id.pending_worker_team)
@@ -28,7 +30,9 @@ class PendingWorkersAdapter(var pendingWorkersList : List<WorkersGetResponse.Dat
         fun bind(elementList: WorkersGetResponse.Data?){
 
             pendingWorkerName.text = elementList?.attributes?.workerName.toString()
-            pendingWorkerTeam.text = elementList?.attributes?.workTeam.toString()
+            pendingWorkerTeam.text = "Equipo: ${elementList?.attributes?.workTeam.toString()}"
+            pendingWorkerStartDate.text = "Inicia: \n${elementList?.attributes?.startDate.toString()}"
+            pendingWorkerFinishDate.text = "Finaliza: \n${elementList?.attributes?.endDate.toString()}"
 
             pendingWorkerAccept.setOnClickListener{
                 callback(elementList, "accept")
@@ -42,7 +46,7 @@ class PendingWorkersAdapter(var pendingWorkersList : List<WorkersGetResponse.Dat
                 callback(elementList, "edit")
             }
 
-            when(pendingWorkerTeam.text.toString()){
+            when(elementList?.attributes?.workTeam.toString()){
                 "Itau Fabrica" -> pendingWorkerTeamColor.setBackgroundColor(getColor(view.context,R.color.itau_fabrica))
                 "Itau Paseo" -> pendingWorkerTeamColor.setBackgroundColor(getColor(view.context,R.color.itau_paseo))
                 "Familiar" -> pendingWorkerTeamColor.setBackgroundColor(getColor(view.context,R.color.familiar))
@@ -82,14 +86,4 @@ class PendingWorkersAdapter(var pendingWorkersList : List<WorkersGetResponse.Dat
         Log.d("pendingWorkerList.size",pendingWorkersList?.size.toString())
         return pendingWorkersList?.size!!
     }
-//    myadapter.reloadList(queryResult) esto se puede llamar desde el actvity o desde el fragment
-
-//    fun reloadList(filteredList : ArrayList<Contacts>){
-//        this.contactsList = filteredList
-//        notifyDataSetChanged()
-//    }
-
-//    fun removeItem(position: Int) {
-//        pendingWorkersList.remove(position)
-//    }
 }

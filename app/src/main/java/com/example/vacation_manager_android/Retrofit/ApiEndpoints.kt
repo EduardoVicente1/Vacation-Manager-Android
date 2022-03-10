@@ -18,12 +18,12 @@ interface ApiEndpoints {
     fun addUser(@Body userData: UserInfoRegister): Call<UserInfoRegister>
 
     @PUT("/api/workers-inf/{id}")
-    fun updateWorker(@Path("id") id: String, @Body newWorkerData : WorkerPutRequest): Call<Any>
+    fun updateWorker(@Path("id") id: String, @Body newWorkerData : WorkerPutRequest): Call<WorkerPutRequest>
 
     @POST("/api/workers-inf/")
     fun newWorker(@Body workerData: WorkerPutRequest): Call<WorkerPutRequest>
 
-    @GET("/api/workers-inf/?pagination[page]=1&pagination[pageSize]=100&sort[0]=email_sended%3Adesc")
-    fun getPendingWorkers(): Call<Any>
+    @GET("https://vacation-manager-py.herokuapp.com/api/workers-inf/?pagination[page]=1&pagination[pageSize]=100&filters[\$and][0][email_sended][\$eq]=false")
+    fun getPendingWorkers(): Call<WorkersGetResponse>
 
 }
